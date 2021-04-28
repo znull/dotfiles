@@ -1,0 +1,2 @@
+#! /bin/sh
+col -b | vim -R -c "set ft=man nomod nolist title titlestring=$MAN_PN" -

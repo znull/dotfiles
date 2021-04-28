@@ -3,29 +3,24 @@
 alias ....='cd ../../..'
 alias ...='cd ../..'
 alias ..='cd ..'
-alias agp='ag --pager less '
+alias ci='git commit'
 alias dus='du -sh *| sort -h'
 alias dv='export DVORAK=true'
 alias gg='git sw'
 alias grl='git remote | xargs git remote show -n'
 alias issh="ssh -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile /dev/null' -o 'loglevel error'"
-alias l="ls -CF $LSOPT"
-alias la='echo "did you mean \"ll\"?"'
-alias ll="ls -la $LSOPT"
-alias lo="ls -sh1 $LSOPT"
+alias st='git status -sb'
 alias sv='sort | v'
-alias svlog='slog -v '
 alias v="$PAGER"
+alias vd='git diff | vim -R -'
 alias vp='vim -R -M -'
 
 case "$OSTYPE" in
     darwin*)
         export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
         alias pidof='killall -d'
-        alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
         alias locate=mdfind
         alias vi=vim
-        alias cpkey='pbcopy < ~/.ssh/id_ed25519.pub && echo "copied id_ed25519.pub to clipboard"'
         alias ldd='otool -L'
         ;;
 
@@ -41,6 +36,9 @@ then
     eval `dircolors`
     export LSOPT="$LSOPT --color"
 fi
+alias l="ls -CF $LSOPT"
+alias ll="ls -la $LSOPT"
+alias lo="ls -sh1 $LSOPT"
 
 if [[ -n $ZSH_NAME ]]
 then
@@ -179,12 +177,12 @@ fi
 # fzf completion
 if [[ -n $ZSH_NAME ]]
 then
-    [[ $- == *i* ]] && source ~/.root/etc/vim/bundle/fzf/shell/completion.zsh
-    source ~/.root/etc/vim/bundle/fzf/shell/key-bindings.zsh
+    [[ $- == *i* ]] && source ~/.vim/plugged/fzf/shell/completion.zsh
+    source ~/.vim/plugged/fzf/shell/key-bindings.zsh
 elif [ -n "$BASH_VERSION" ]
 then
-    [[ $- == *i* ]] && source ~/.root/etc/vim/bundle/fzf/shell/completion.bash
-    source ~/.root/etc/vim/bundle/fzf/shell/key-bindings.bash
+    [[ $- == *i* ]] && source ~/.vim/plugged/fzf/shell/completion.bash
+    source ~/.vim/plugged/fzf/shell/key-bindings.bash
 fi
 
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
@@ -192,75 +190,57 @@ then
     eval "$(rbenv init -)"
 fi
 
-if command -v color > /dev/null
-then
-    CNONE="$(color none)"
-    CPNONE="$(color -p none)"
-
-    if [ -r $HOME/.root/local/etc/pcolor ]
-    then
-        HCOLOR=$(color -p $(cat $HOME/.root/local/etc/pcolor))
-        PCHCOLOR=$(color $(cat $HOME/.root/local/etc/pcolor))
-    else
-        HCOLOR=$(color -p white)
-        PCHCOLOR=$(color white)
-    fi
-    RCOLOR="$HCOLOR"
-    if [ "$LOGNAME" = root ]
-    then
-        PCHCOLOR=$(color grey)
-        RCOLOR=$(color -p grey)
-    else
-        unset HCOLOR
-    fi
-fi
-
-test -r /etc/debian_chroot && unset LS_COLORS
-
-test "$STY" && PCHROOT="$STY"
-test -r /etc/debian_chroot && PCHROOT="$(cat /etc/debian_chroot)"
-test "$PCHROOT" && TCHROOT="[${PCHROOT}]"
-test "$PCHROOT" && PCHROOT="[${CPNONE}${PCHROOT}$RCOLOR]"
-if [[ -n $ZSH_NAME ]]
-then
-    # zshmisc - PS1 docs
-    # zshcontrib - vcs_info docs
-    setopt prompt_subst
-    autoload -Uz vcs_info
-
-    zstyle ':vcs_info:*' enable git hg svn
-    zstyle ':vcs_info:*' check-for-changes true
-    #zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]'
-    #zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]'
-    #zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
-    zstyle ':vcs_info:*' actionformats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b|%a$RCOLOR]"
-    zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
-    VCSINFO='${vcs_info_msg_0_}'
-
-    # ➤•❯ #
-    PROMPT="$RCOLOR"'['"$HCOLOR%m$RCOLOR]$PCHROOT$VCSINFO"'(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)'"$CPNONE "
-    RPROMPT="$RCOLOR%~$CPNONE"
-
-    function dirhide () {
-        RPROMPT_backup=$RPROMPT
-        unset RPROMPT
-    }
-    function dirshow () {
-        RPROMPT=$RPROMPT_backup
-        unset RPROMPT_backup
-    }
-else
-    export PS1="$RCOLOR"'['"$HCOLOR"'\h'"$RCOLOR]$PCHROOT"'($?)➤'"$CPNONE"' '
-fi
-
-unset HCOLOR PCHCOLOR CNONE CPNONE RCOLOR PCHROOT VCSINFO
-
 function akfp() {
     local ak=${1:-~/.ssh/authorized_keys}
     while read l
     do
         [[ -n $l && ${l###} = $l ]] && ssh-keygen -l -f /dev/stdin <<<$l
     done < "$ak"
+}
+
+function color() {
+    if [[ $1 = '-p' ]]
+    then
+        if [[ -n $ZSH_NAME ]]
+        then
+            esc_open='%{'
+            esc_close='%}'
+        else
+            esc_open='\['
+            esc_close='\]'
+        fi
+        shift
+    fi
+
+    case "$1" in
+        none) echo -ne $esc_open'\033[0m'$esc_close ;;
+        black) echo -ne $esc_open'\033[0;30m'$esc_close ;;
+        blue) echo -ne $esc_open'\033[0;34m'$esc_close ;;
+        brown) echo -ne $esc_open'\033[0;33m'$esc_close ;;
+        cyan) echo -ne $esc_open'\033[0;36m'$esc_close ;;
+        grey) echo -ne $esc_open'\033[1;30m'$esc_close ;;
+        green) echo -ne $esc_open'\033[0;32m'$esc_close ;;
+        lightgrey) echo -ne $esc_open'\033[0;37m'$esc_close ;;
+        lightblue) echo -ne $esc_open'\033[1;34m'$esc_close ;;
+        lightcyan) echo -ne $esc_open'\033[1;36m'$esc_close ;;
+        lightgreen) echo -ne $esc_open'\033[1;32m'$esc_close ;;
+        lightpurple) echo -ne $esc_open'\033[1;35m'$esc_close ;;
+        lightred) echo -ne $esc_open'\033[1;31m'$esc_close ;;
+        purple) echo -ne $esc_open'\033[0;35m'$esc_close ;;
+        red) echo -ne $esc_open'\033[0;31m'$esc_close ;;
+        white) echo -ne $esc_open'\033[1;37m'$esc_close ;;
+        yellow) echo -ne $esc_open'\033[1;33m'$esc_close ;;
+        all|show|*)
+                for c in black blue brown cyan grey green lightblue \
+                    lightcyan lightgreen lightgrey lightpurple lightred purple \
+                    red white yellow
+                do
+                    color $c
+                    echo $c
+                done
+                color none
+        ;;
+    esac
 }
 
 function dockrm() {
@@ -340,5 +320,68 @@ function wanip() {
         dig -6 +short myip.opendns.com aaaa @resolver1.opendns.com
     } | sort -u
 }
+
+if command -v color > /dev/null
+then
+    CNONE="$(color none)"
+    CPNONE="$(color -p none)"
+
+    if [ -r $HOME/.config/prompt_color ]
+    then
+        HCOLOR=$(color -p $(cat $HOME/.config/prompt_color))
+        PCHCOLOR=$(color $(cat $HOME/.config/prompt_color))
+    else
+        HCOLOR=$(color -p white)
+        PCHCOLOR=$(color white)
+    fi
+    RCOLOR="$HCOLOR"
+    if [ "$LOGNAME" = root ]
+    then
+        PCHCOLOR=$(color grey)
+        RCOLOR=$(color -p grey)
+    else
+        unset HCOLOR
+    fi
+fi
+
+test -r /etc/debian_chroot && unset LS_COLORS
+
+test "$STY" && PCHROOT="$STY"
+test -r /etc/debian_chroot && PCHROOT="$(cat /etc/debian_chroot)"
+test "$PCHROOT" && TCHROOT="[${PCHROOT}]"
+test "$PCHROOT" && PCHROOT="[${CPNONE}${PCHROOT}$RCOLOR]"
+if [[ -n $ZSH_NAME ]]
+then
+    # zshmisc - PS1 docs
+    # zshcontrib - vcs_info docs
+    setopt prompt_subst
+    autoload -Uz vcs_info
+
+    zstyle ':vcs_info:*' enable git hg svn
+    zstyle ':vcs_info:*' check-for-changes true
+    #zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]'
+    #zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]'
+    #zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+    zstyle ':vcs_info:*' actionformats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b|%a$RCOLOR]"
+    zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
+    VCSINFO='${vcs_info_msg_0_}'
+
+    # ➤•❯ #
+    PROMPT="$RCOLOR"'['"$HCOLOR%m$RCOLOR]$PCHROOT$VCSINFO"'(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)'"$CPNONE "
+    RPROMPT="$RCOLOR%~$CPNONE"
+
+    function dirhide () {
+        RPROMPT_backup=$RPROMPT
+        unset RPROMPT
+    }
+    function dirshow () {
+        RPROMPT=$RPROMPT_backup
+        unset RPROMPT_backup
+    }
+else
+    export PS1="$RCOLOR"'['"$HCOLOR"'\h'"$RCOLOR]$PCHROOT"'($?)➤'"$CPNONE"' '
+fi
+
+unset HCOLOR PCHCOLOR CNONE CPNONE RCOLOR PCHROOT VCSINFO
 
 # vim: sw=4 et

@@ -14,7 +14,6 @@ setup_PATH() {
         /bin \
         /usr/sbin \
         /usr/bin \
-        /usr/local/lib/ruby/gems/2.5.0/bin \
         '/Applications/VMware Fusion.app/Contents/Public'
     do
         if [[ -d $dir ]]
@@ -36,6 +35,8 @@ export FZF_CTRL_T_COMMAND='fd --type file --color=always'
 export FZF_DEFAULT_COMMAND=$FZF_CTRL_T_COMMAND
 export FZF_DEFAULT_OPTS='--ansi'
 export LESS='-iqsMRXSF -x4'	# added for psql: SFx4
+export MANOPT=-Pmanpager
+export MANPAGER=manpager
 export PAGER=less
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
