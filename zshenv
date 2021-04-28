@@ -40,3 +40,5 @@ export MANPAGER=manpager
 export PAGER=less
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
+
+test -r ~/.config/env && source ~/.config/env
