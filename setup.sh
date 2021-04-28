@@ -26,6 +26,10 @@ ln -rnsv .vim/plugged/fzf/bin/fzf bin
 command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
 case "$OSTYPE" in
+    darwin*)
+        brew install ascii coreutils ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree xz zsh-completions
+    ;;
+
     linux*)
         ver=v8.2.1
         dir=fd-$ver-x86_64-unknown-linux-gnu
