@@ -3,7 +3,7 @@
 cd
 
 install -d -m 0700 .tmp .ssh
-install -d -m 0755 .config/git .vim/colors
+install -d -m 0755 bin .config/git .vim/colors
 
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gitconfig .gitconfig
