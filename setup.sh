@@ -27,7 +27,7 @@ command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
 case "$OSTYPE" in
     darwin*)
-        brew install ascii coreutils ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree xz zsh-completions
+        brew install ascii coreutils ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim xz zsh-completions
     ;;
 
     linux*)
@@ -45,3 +45,5 @@ case "$OSTYPE" in
         fi
     ;;
 esac
+
+vim +'PlugInstall --sync' +qall
