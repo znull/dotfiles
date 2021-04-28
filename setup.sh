@@ -10,10 +10,12 @@ ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
 ln -rnsv .dotfiles/inputrc .inputrc
 ln -rnsv .dotfiles/jellybeans.vim .vim/colors
+ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
 ln -rnsv .dotfiles/pythonrc .pythonrc
 ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
+ln -rnsv .dotfiles/xar bin
 ln -rnsv .dotfiles/zprofile .bash_profile
 ln -rnsv .dotfiles/zprofile .zprofile
 ln -rnsv .dotfiles/zshenv .zshenv

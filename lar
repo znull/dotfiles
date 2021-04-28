@@ -1,0 +1,99 @@
+#! /bin/bash
+
+if command -v pigz > /dev/null
+then
+    gz=pigz
+else
+    gz=gzip
+fi
+
+for archive in "$@"
+do
+    larchive=$(echo "$archive" | tr '[:upper:]' '[:lower:]')
+    larchive=$(basename "$larchive")
+    case "$larchive" in
+        *.7z)
+            7zr l "$archive"
+        ;;
+        *.a)
+            ar tv "$archive"
+        ;;
+        *.ace)
+            unace v "$archive"
+        ;;
+        *.bz2)
+            bzip2 -dc < "$archive" | tar tvf -
+        ;;
+        *.cpio)
+            cpio -tv < "$archive"
+        ;;
+        *.cpio.gz|initrd.*)
+            $gz -dc < "$archive" | cpio -tv
+        ;;
+        *.cpio.xz)
+            unxz < "$archive" | cpio -tv
+        ;;
+        *.deb)
+                dpkg-deb -I "$archive"
+                dpkg-deb -c "$archive"
+        ;;
+        *.dsc)
+            cat "$archive"
+        ;;
+        *.iso)
+                iso-info -i "$archive" -f
+        ;;
+        *.[jw]ar|*.exe|*.zip|*.xpi|*.xgt|*.egg|*.xlsx|*.docx|*.apk|*.ez|*.srcjar|*.sh)
+            unzip -l "$archive"
+        ;;
+        *.pax)
+            pax < "$archive"
+        ;;
+        *.pax.gz)
+            $gz -dc < "$archive" | pax
+        ;;
+        *.pax.xz)
+            unxz < "$archive" | pax
+        ;;
+        *.rar)
+            unrar l "$archive"
+        ;;
+        *.rpm)
+            rpm2cpio < "$archive" | cpio -tv
+        ;;
+        *.shn)
+            name=`basename "$archive"`
+            echo "${name%.shn}.wav"
+        ;;
+        *.squashfs)
+            unsquashfs -ls "$archive"
+        ;;
+        *.tar|*.ova|*.xva)
+            tar tvf "$archive"
+        ;;
+        *.tar.gz|*.tgz|*.tar.z)
+            $gz -dc < "$archive" | tar tvf -
+        ;;
+        *.tar.sz|*.tsz)
+            snzip -dc < "$archive" | tar tvf -
+        ;;
+        *.tar.lzo|*.tzo)
+            lzop -d < "$archive" | tar tvf -
+        ;;
+        *.tar.lz4)
+            lz4 -d < "$archive" | tar tvf -
+        ;;
+        *.tar.xz)
+            unxz < "$archive" | tar tvf -
+        ;;
+        *.a|*.vib)
+                ar tv "$archive"
+        ;;
+        *.vgz)
+            $gz -dc < "$archive" | vmtar -t -
+        ;;
+        *)
+            echo "$archive is not a recognized archive."
+        ;;
+    esac
+done
