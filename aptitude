@@ -1,0 +1,2 @@
+Aptitude::UI::Keybindings::Up "t,k,up";
+Aptitude::UI::Keybindings::Down "h,j,down";

@@ -1,0 +1,5 @@
+#command
+w toggle-option S
+i help
+h forw-line
+t back-line

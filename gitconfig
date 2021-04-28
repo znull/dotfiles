@@ -1,0 +1,78 @@
+[include]
+    path = ~/.config/git/local
+
+[alias]
+    br = branch
+    bv = branch -vv
+    ci = commit
+    co = checkout
+    dc = diff --cached
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    lo = log --oneline
+    recent = for-each-ref --sort=-committerdate --format='%(committerdate:short): %(refname:short)' refs/heads/
+    sl = stash list
+    ss = stash show
+    st = status -sb
+    sw = !sh -c ":; { git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | grep -v \"$(git branch --show-current)\"; git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/origin/ ; } | fzf --preview 'git log --color=always {}' | perl -pe \"s@^origin/@@\" | xargs --no-run-if-empty git switch"
+    this = rev-parse --abbrev-ref @
+    up = "!db=$(git symbolic-ref refs/remotes/origin/HEAD) ; db=\"${db##*/}\"; set -x; git pull origin \"$db\""
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[diff]
+    algorithm = histogram
+    renames = copies
+    tool = diffmerge
+    renamelimit = 30000
+
+[difftool "diffmerge"]
+    cmd = diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
+
+[fetch]
+    prune = true
+
+[filter "lfs"]
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+
+[github]
+    user = znull
+
+[init]
+    defaultBranch = main
+
+[lfs]
+    locksverify = false
+
+[log]
+    decorate = true
+
+[merge]
+    tool = diffmerge
+    conflictstyle = diff3
+    renamelimit = 30000
+
+[mergetool "diffmerge"]
+    cmd = diffmerge --nosplash --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+    trustExitCode = true
+
+[pull]
+    rebase = true
+
+[push]
+    default = simple
+
+[rebase]
+    autosquash = true
+
+[showbranch]
+    default = --color=auto
+
+[user]
+    name = Jason Lunz

@@ -1,0 +1,41 @@
+#! /bin/zsh
+
+setup_PATH() {
+    unset PATH
+
+    for dir in \
+        ~/bin \
+        ~/.cargo/bin \
+        /usr/local/opt/coreutils/libexec/gnubin \
+        /usr/local/opt/findutils/libexec/gnubin \
+        /usr/local/sbin \
+        /usr/local/bin \
+        /sbin \
+        /bin \
+        /usr/sbin \
+        /usr/bin \
+        /usr/local/lib/ruby/gems/2.5.0/bin \
+        '/Applications/VMware Fusion.app/Contents/Public'
+    do
+        if [[ -d $dir ]]
+        then
+            [[ -n $PATH ]] && PATH=$PATH:
+            PATH=$PATH$dir
+        fi
+    done
+
+    export PATH
+}
+
+setup_PATH
+
+export DVORAK=true
+export EDITOR=vim
+export VISUAL=$EDITOR
+export FZF_CTRL_T_COMMAND='fd --type file --color=always'
+export FZF_DEFAULT_COMMAND=$FZF_CTRL_T_COMMAND
+export FZF_DEFAULT_OPTS='--ansi'
+export LESS='-iqsMRXSF -x4'	# added for psql: SFx4
+export PAGER=less
+export PYTHONSTARTUP=~/.pythonrc
+export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin

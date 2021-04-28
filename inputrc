@@ -1,0 +1,24 @@
+set editing-mode vi
+set convert-meta off
+
+"\C-p": history-search-backward
+
+# mappings for "page up" and "page down" to step to the beginning/end
+# of the history
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[7~": beginning-of-line
+"\e[8~": end-of-line
+
+set keymap vi-move
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[7~": beginning-of-line
+"\e[8~": end-of-line
+
+"d": backward-char
+"n": forward-char
+"t": previous-history
+"h": next-history
+"e": vi-delete-to
+"l": vi-search-again
