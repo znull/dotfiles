@@ -6,7 +6,7 @@
 
 umask 022
 
-test -n "$BASH" && source ~/.dotfiles/etc/zshenv
+test -n "$BASH" && source ~/.dotfiles/zshenv
 
 if [ $EUID -eq 0 ]
 then
