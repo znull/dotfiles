@@ -3,7 +3,7 @@
 cd
 
 install -d -m 0700 .tmp .ssh
-install -d -m 0755 bin .config/git .vim/colors
+install -d -m 0755 bin .config/git .vim/autoload .vim/colors
 
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gitconfig .gitconfig
@@ -21,7 +21,6 @@ ln -rnsv .dotfiles/zprofile .zprofile
 ln -rnsv .dotfiles/zshenv .zshenv
 ln -rnsv .dotfiles/zshrc .bashrc
 ln -rnsv .dotfiles/zshrc .zshrc
-ln -rnsv .vim/plugged/fzf/bin/fzf bin
 
 command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
@@ -46,4 +45,7 @@ case "$OSTYPE" in
     ;;
 esac
 
+[[ -s ~/.vim/autoload/plug.vim ]] ||
+    curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +'PlugInstall --sync' +qall
+ln -rnsv .vim/plugged/fzf/bin/fzf bin
