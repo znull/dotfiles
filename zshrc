@@ -310,7 +310,7 @@ function msh() {
 function tsh() {
     local host=$1
     shift
-    ssh -t -S none "$host" -- "test -n \"\$SSH_AUTH_SOCK\" && echo \"\$SSH_AUTH_SOCK\" >> ~/.ssh/agents; tmux -2 new-session -AD -slunz $@"
+    ssh -t "$host" -- "tmux -2 new-session -AD -slunz $@"
 }
 
 function wanip() {
