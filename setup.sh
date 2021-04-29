@@ -5,6 +5,14 @@ cd
 install -d -m 0700 .tmp .ssh
 install -d -m 0755 bin .config/git .vim/autoload .vim/colors
 
+# GHES
+if [[ $USER = build && $HOME = /workspace ]]
+then
+    sudo -n chsh -s /bin/zsh build
+    echo EMAIL=znull@github.com > ~/.config/env
+    rm -f ~/.gitconfig
+fi
+
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
