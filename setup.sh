@@ -2,16 +2,21 @@
 
 cd
 
-install -d -m 0700 .tmp .ssh
+install -d -m 0700 .tmp .ssh/sockets
 install -d -m 0755 bin .config/git .vim/autoload .vim/colors
 
 # GHES
 if [[ $USER = build && $HOME = /workspace ]]
 then
     sudo -n chsh -s /bin/zsh build
-    echo EMAIL=znull@github.com > ~/.config/env
+    echo 'export EMAIL=znull@github.com' > ~/.config/env
+    echo 'export SSH_AUTH_SOCK=~/.ssh/sockets/secretive' >> ~/.config/env
+    gpg --import .dotfiles/5D27B87E.gpg
+
     rm -f ~/.gitconfig
     sudo apt install exuberant-ctags ripgrep
+
+    ln -rnsv .dotfiles/git-gpg .config/git/gpg
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
