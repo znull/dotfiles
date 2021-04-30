@@ -11,6 +11,7 @@ then
     sudo -n chsh -s /bin/zsh build
     echo EMAIL=znull@github.com > ~/.config/env
     rm -f ~/.gitconfig
+    sudo apt install exuberant-ctags ripgrep
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
