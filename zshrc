@@ -307,6 +307,27 @@ function msh() {
     mosh $mo "$host" -- tmux -2 new-session -AD -slunz "$@"
 }
 
+function oports() {
+    case "$OSTYPE" in
+        linux*)
+            netstat -utlp "$@" | sed \
+                -e 's/ PID\/Program name/PID\/name/' \
+                -e 's/   \([^ ]\+\) *$/\1/'
+        ;;
+
+        *|darwin*|FreeBSD*)
+            if command -v lsof > /dev/null
+            then
+                    sudo lsof -i udp "$@"
+                    sudo lsof -i tcp -s tcp:listen "$@"
+            else
+                    netstat -p udp -a
+                    netstat -p tcp -a | grep LISTEN
+            fi
+        ;;
+    esac
+}
+
 function tsh() {
     local host=$1
     shift
