@@ -21,8 +21,8 @@ do
         *.ace)
             unace x "$archive"
         ;;
-        *.bz2)
-            bzip2 -dc < "$archive" | tar xvf -
+        *.bz2|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z|*.zst)
+            tar -axvf "$archive"
         ;;
         *.cpio)
             cpio -div < "$archive"
@@ -75,20 +75,11 @@ do
         *.tar|*.ova|*.xva)
             tar xvf "$archive"
         ;;
-        *.tar.gz|*.tgz|*.tar.z)
-            $gz -dc < "$archive" | tar xvf -
-        ;;
         *.tar.sz|*.tsz)
             snzip -dc < "$archive" | tar xvf -
         ;;
-        *.tar.lzo|*.tzo)
-            lzop -d < "$archive" | tar xvf -
-        ;;
         *.tar.lz4)
             lz4 -d < "$archive" | tar xvf -
-        ;;
-        *.tar.xz)
-            unxz < "$archive" | tar xvf -
         ;;
         *.a|*.vib)
                 ar xv "$archive"
