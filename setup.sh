@@ -39,6 +39,12 @@ ln -rnsv .dotfiles/zshrc .zshrc
 
 command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
+(
+    cd .dotfiles
+    git remote set-url origin https://github.com/znull/dotfiles.git
+    git remote set-url --push origin git@github.com:znull/dotfiles.git
+)
+
 case "$OSTYPE" in
     darwin*)
         brew install ascii coreutils ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim xz zsh-completions
