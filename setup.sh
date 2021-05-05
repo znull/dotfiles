@@ -3,14 +3,15 @@
 cd
 
 install -d -m 0700 .tmp .ssh/sockets
-install -d -m 0755 bin .config/git .vim/autoload .vim/colors
+install -d -m 0755 bin .config/{env.d,git} .vim/{autoload,colors}
+touch .config/env.d/local
 
 # GHES
 if [[ $USER = build && $HOME = /workspace ]]
 then
     sudo -n chsh -s /bin/zsh build
-    echo 'export EMAIL=znull@github.com' > ~/.config/env
-    echo 'export SSH_AUTH_SOCK=~/.ssh/sockets/secretive' >> ~/.config/env
+    echo 'export EMAIL=znull@github.com' > ~/.config/env.d/ghes
+    echo 'export SSH_AUTH_SOCK=~/.ssh/sockets/secretive' >> ~/.config/env.d/ghes
     gpg --import .dotfiles/5D27B87E.gpg
 
     rm -f ~/.gitconfig
