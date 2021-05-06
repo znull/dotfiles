@@ -375,7 +375,6 @@ if [[ -n $ZSH_NAME ]]
 then
     # zshmisc - PS1 docs
     # zshcontrib - vcs_info docs
-    setopt prompt_subst
     autoload -Uz vcs_info
 
     zstyle ':vcs_info:*' enable git hg svn
@@ -385,24 +384,22 @@ then
     #zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
     zstyle ':vcs_info:*' actionformats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b|%a$RCOLOR]"
     zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
-    VCSINFO='${vcs_info_msg_0_}'
+    precmd() {
+        vcs_info
+        PROMPT="$RCOLOR"'['"$HCOLOR%m$RCOLOR]$PCHROOT${vcs_info_msg_0_}"'(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)'"$CPNONE "      # ➤ • ❯
+    }
 
-    # ➤•❯ #
-    PROMPT="$RCOLOR"'['"$HCOLOR%m$RCOLOR]$PCHROOT$VCSINFO"'(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)'"$CPNONE "
-    RPROMPT="$RCOLOR%~$CPNONE"
-
-    function dirhide () {
-        RPROMPT_backup=$RPROMPT
+    dirhide() {
         unset RPROMPT
     }
-    function dirshow () {
-        RPROMPT=$RPROMPT_backup
-        unset RPROMPT_backup
+    dirshow() {
+        RPROMPT=$RCOLOR%~$CPNONE
     }
+    dirshow
+
 else
     export PS1="$RCOLOR"'['"$HCOLOR"'\h'"$RCOLOR]$PCHROOT"'($?)➤'"$CPNONE"' '
+    unset HCOLOR PCHCOLOR CNONE CPNONE RCOLOR PCHROOT
 fi
-
-unset HCOLOR PCHCOLOR CNONE CPNONE RCOLOR PCHROOT VCSINFO
 
 # vim: sw=4 et
