@@ -41,6 +41,7 @@ export MOSH_ESCAPE_KEY=$(echo -e '\x1c')        # fixes C-^ switching in vim
 export PAGER=less
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
+export UNAME=$(uname)
 
 for rc in ~/.config/env.d/*
 do
