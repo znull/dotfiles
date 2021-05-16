@@ -402,4 +402,9 @@ else
     unset HCOLOR PCHCOLOR CNONE CPNONE RCOLOR PCHROOT
 fi
 
+for rc in ~/.config/rc.d/*
+do
+    source "$rc"
+done
+
 # vim: sw=4 et
