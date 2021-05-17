@@ -347,10 +347,10 @@ then
     CNONE="$(color none)"
     CPNONE="$(color -p none)"
 
-    if [ -r $HOME/.config/prompt_color ]
+    if [[ -n $PROMPT_COLOR ]]
     then
-        HCOLOR=$(color -p $(cat $HOME/.config/prompt_color))
-        PCHCOLOR=$(color $(cat $HOME/.config/prompt_color))
+        HCOLOR=$(color -p "$PROMPT_COLOR")
+        PCHCOLOR=$(color "$PROMPT_COLOR")
     else
         HCOLOR=$(color -p white)
         PCHCOLOR=$(color white)
