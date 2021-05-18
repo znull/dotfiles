@@ -335,11 +335,10 @@ function tsh() {
 }
 
 function wanip() {
-    {
-        dig +short myip.opendns.com @resolver1.opendns.com
-        dig +short myip.opendns.com aaaa @resolver1.opendns.com
-        dig -6 +short myip.opendns.com aaaa @resolver1.opendns.com
-    } | sort -u
+    echo -n 'A: '; curl -s https://checkip.amazonaws.com
+    echo -n 'A: '; dig +short myip.opendns.com @resolver1.opendns.com || echo
+    echo -n 'AAAA: '; dig +short myip.opendns.com aaaa @resolver1.opendns.com || echo
+    echo -n 'AAAA: '; dig -6 +short myip.opendns.com aaaa @resolver1.opendns.com || echo
 }
 
 if command -v color > /dev/null
