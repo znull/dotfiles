@@ -1,6 +1,11 @@
 #! /bin/bash
 
-cd
+cd || exit 1
+
+if [[ $HOSTNAME = *.github.net ]]
+then
+    rm -vf .bash* .profile
+fi
 
 install -d -m 0700 .tmp .ssh/sockets
 install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} .vim/{autoload,colors}
