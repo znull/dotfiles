@@ -18,5 +18,9 @@ fi
 
 command -v lesspipe > /dev/null && eval $(lesspipe)
 
-test -r ~/.config/profile && source ~/.config/profile
+for profile in ~/.config/profile.d/*
+do
+    source "$profile"
+done
+
 test "$BASH" && test -r ~/.bashrc && source ~/.bashrc

@@ -3,8 +3,8 @@
 cd
 
 install -d -m 0700 .tmp .ssh/sockets
-install -d -m 0755 bin .config/{env.d,git,rc.d} .vim/{autoload,colors}
-touch .config/env.d/local .config/rc.d/local
+install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} .vim/{autoload,colors}
+touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
 # GHES
 if [[ $USER = build && $HOME = /workspace ]]
