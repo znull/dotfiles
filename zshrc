@@ -1,5 +1,16 @@
 #! /bin/zsh
 
+if [[ $HOSTNAME = *.github.net ]]
+then
+    OLDLESS=$LESS
+
+    source /etc/profile
+    export PATH=~/bin:$PATH
+
+    LESS=$OLDLESS
+    unset OLDLESS
+fi
+
 alias ....='cd ../../..'
 alias ...='cd ../..'
 alias ..='cd ..'
@@ -340,17 +351,6 @@ function wanip() {
     echo -n 'AAAA: '; dig +short myip.opendns.com aaaa @resolver1.opendns.com || echo
     echo -n 'AAAA: '; dig -6 +short myip.opendns.com aaaa @resolver1.opendns.com || echo
 }
-
-if [[ $HOSTNAME = *.github.net ]]
-then
-    OLDLESS=$LESS
-
-    source /etc/profile
-    export PATH=~/bin:$PATH
-
-    LESS=$OLDLESS
-    unset OLDLESS
-fi
 
 if command -v color > /dev/null
 then
