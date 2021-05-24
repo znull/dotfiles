@@ -34,6 +34,7 @@ export VISUAL=$EDITOR
 export FZF_CTRL_T_COMMAND='fd --type file --color=always'
 export FZF_DEFAULT_COMMAND=$FZF_CTRL_T_COMMAND
 export FZF_DEFAULT_OPTS='--ansi'
+export HOSTNAME=${HOSTNAME:-"$(hostname)"}
 export LESS='-iqsMRXSF -x4'	# added for psql: SFx4
 export MANOPT=-Pmanpager
 export MANPAGER=manpager
