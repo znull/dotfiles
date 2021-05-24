@@ -1,5 +1,16 @@
 #! /bin/zsh
 
+if [[ $HOSTNAME = *.github.net ]]
+then
+    if [[ -n $BASH && $- == *i* ]]
+    then
+        exec zsh -l
+    fi
+
+    export EMAIL=znull@github.com
+    export PROMPT_COLOR=lightred
+fi
+
 # on macOS, calling setup_PATH in .zshenv is too early because
 # /etc/zprofile will stomp it with eval `/usr/libexec/path_helper -s`
 [[ $OSTYPE = darwin* ]] && setup_PATH
