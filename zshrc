@@ -53,24 +53,26 @@ alias lo="ls -sh1 $LSOPT"
 
 if [[ -n $ZSH_NAME ]]
 then
-    cdpath=(~ ~/src)
-
     autoload -U zfinit zmv
     zfinit
-    setopt nobadpattern correct dvorak incappendhistory listpacked
+
+    # completion
+    setopt nobadpattern correct dvorak listpacked
     unsetopt nomatch
 
     DIRSTACKSIZE=8
     setopt autopushd pushdminus pushdsilent pushdtohome
+    unsetopt autocd beep
+    alias ds='echo "${dirstack[@]}"'
+    cdpath=(~ ~/src)
 
-    test -d /usr/local/share/zsh-completions && fpath=(/usr/local/share/zsh-completions $fpath)
-
-    # Lines configured by zsh-newuser-install
+    # history
+    setopt hist_ignore_all_dups hist_ignore_space hist_reduce_blanks hist_save_no_dups share_history
     HISTFILE=~/.histfile
     HISTSIZE=1000
     SAVEHIST=1000
-    unsetopt autocd beep
-    # End of lines configured by zsh-newuser-install
+
+    test -d /usr/local/share/zsh-completions && fpath=(/usr/local/share/zsh-completions $fpath)
 
     # The following lines were added by compinstall
     zstyle ':completion:*' completer _complete _correct
