@@ -15,8 +15,6 @@ touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 if [[ $USER = build && $HOME = /workspace ]]
 then
     sudo -n chsh -s /bin/zsh build
-    echo 'export EMAIL=znull@github.com' > ~/.config/env.d/ghes
-    echo 'export SSH_AUTH_SOCK=~/.ssh/sockets/secretive' >> ~/.config/env.d/ghes
     gpg --import .dotfiles/5D27B87E.gpg
 
     rm -f ~/.gitconfig

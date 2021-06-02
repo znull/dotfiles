@@ -11,6 +11,8 @@ then
     export PROMPT_COLOR=lightred
 fi
 
+[[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
+
 # on macOS, calling setup_PATH in .zshenv is too early because
 # /etc/zprofile will stomp it with eval `/usr/libexec/path_helper -s`
 [[ $OSTYPE = darwin* ]] && setup_PATH

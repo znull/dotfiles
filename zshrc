@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-if [[ $HOSTNAME = *.github.net ]]
+if [[ -z $GHE_DEV && $HOSTNAME = *.github.net ]]
 then
     OLDLESS=$LESS
 
@@ -41,6 +41,35 @@ case "$OSTYPE" in
         alias open=xdg-open
         ;;
 esac
+
+if [[ -n $GHE_DEV ]]
+then
+    alias src="cd ~/enterprise2"
+    alias r="src; chroot-stop.sh; chroot-reset.sh; sudo ./chroot-cluster-stop.sh; chroot-cluster-reset.sh test/cluster.conf; chroot-cluster-reset.sh test/cluster-ha.conf; chroot-cluster-reset.sh test/cluster-dr.conf; chroot-cluster-reset.sh test/cluster-dr-lite.conf;"
+    alias b="src; r; chroot-build.sh"
+    alias d="src; env -u GITHUB_HOSTNAME chroot-start.sh && chroot-configure.sh"
+    alias bd="b && d"
+    alias dc="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster.conf"
+    alias bdc="b && dc"
+    alias dha="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-ha.conf"
+    alias bdha="b && dha"
+    alias dhaa="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-ha-active.conf"
+    alias bdhaa="b && dhaa"
+    alias dcdr="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-dr.conf"
+    alias bdcdr="b && dcdr"
+    alias dcdrl="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-dr-lite.conf"
+    alias bdcdrl="b && dcdrl"
+    alias gap="git add . && git commit --amend --no-edit && git push --force"
+    alias cip="chroot-cluster-ip.sh; chroot-ip.sh"
+    alias sshc="chroot-ssh.sh"
+    alias sshp="chroot-cluster-ssh.sh build-ha-primary"
+    alias sshdrp="chroot-cluster-ssh.sh build-dr-primary-main"
+    alias sshdrs="chroot-cluster-ssh.sh build-dr-secondary-main"
+    alias sshr="chroot-cluster-ssh.sh build-ha-replica"
+    alias sshr2="chroot-cluster-ssh.sh build-ha-replica2"
+    alias sshd="chroot-cluster-ssh.sh build-cluster-data"
+    alias ssha="chroot-cluster-ssh.sh build-cluster-app"
+fi
 
 if command -v dircolors > /dev/null
 then
