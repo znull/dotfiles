@@ -52,6 +52,17 @@ then
     export SSH_AUTH_SOCK=~/.ssh/sockets/secretive
 fi
 
+function agent() {
+    local sock=~/.ssh/sockets/agent-"$1"
+    if [[ -S $sock ]]
+    then
+        export SSH_AUTH_SOCK=$sock
+    else
+        echo "$sock is not a socket"
+        return 1
+    fi
+}
+
 for rc in ~/.config/env.d/*
 do
     source "$rc"
