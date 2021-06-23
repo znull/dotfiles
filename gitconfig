@@ -8,6 +8,7 @@
     ci = commit
     co = checkout
     dc = diff --cached
+    du = diff @{u}...HEAD
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     lo = log --oneline
     recent = for-each-ref --sort=-committerdate --format='%(committerdate:short): %(refname:short)' refs/heads/
