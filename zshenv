@@ -45,13 +45,6 @@ export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
 export UNAME=$(uname)
 
-if [[ $USER = build && $HOME = /workspace ]]
-then
-    export GHE_DEV=t
-    export PATH=~/enterprise2:$PATH
-    export SSH_AUTH_SOCK=~/.ssh/sockets/secretive
-fi
-
 function agent() {
     local sock=~/.ssh/sockets/agent-"$1"
     if [[ -S $sock ]]
@@ -62,6 +55,13 @@ function agent() {
         return 1
     fi
 }
+
+if [[ $USER = build && $HOME = /workspace ]]
+then
+    export GHE_DEV=t
+    export PATH=~/enterprise2:$PATH
+    agent gpg
+fi
 
 for rc in ~/.config/env.d/*
 do
