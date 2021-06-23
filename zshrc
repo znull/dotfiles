@@ -49,17 +49,25 @@ then
     alias b="src; r; chroot-build.sh"
     alias d="src; env -u GITHUB_HOSTNAME chroot-start.sh && chroot-configure.sh"
     alias bd="b && d"
+
     alias dc="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster.conf"
     alias bdc="b && dc"
+
     alias dha="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-ha.conf"
     alias bdha="b && dha"
+
     alias dhaa="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-ha-active.conf"
     alias bdhaa="b && dhaa"
+
+    alias dhac="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-ha-cache.conf"
+    alias bdhac="b && dhac"
+
     alias dcdr="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-dr.conf"
     alias bdcdr="b && dcdr"
+
     alias dcdrl="src; env -u GITHUB_HOSTNAME chroot-cluster-start.sh test/cluster-dr-lite.conf"
     alias bdcdrl="b && dcdrl"
-    alias gap="git add . && git commit --amend --no-edit && git push --force"
+
     alias cip="chroot-cluster-ip.sh; chroot-ip.sh"
     alias sshc="chroot-ssh.sh"
     alias sshp="chroot-cluster-ssh.sh build-ha-primary"
