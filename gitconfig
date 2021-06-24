@@ -11,6 +11,7 @@
     du = diff @{u}...HEAD
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     lo = log --oneline
+    po = push origin HEAD
     recent = for-each-ref --sort=-committerdate --format='%(committerdate:short): %(refname:short)' refs/heads/
     sl = stash list
     ss = stash show
