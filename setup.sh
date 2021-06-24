@@ -21,6 +21,11 @@ then
     sudo apt install exuberant-ctags ripgrep
 
     ln -rnsv .dotfiles/git-gpg .config/git/gpg
+
+    sudo dpkg-divert --rename /bin/gpg-agent
+    sudo dpkg-divert --rename /usr/bin/gpg-agent
+    echo '#!/bin/sh' | sudo tee /bin/gpg-agent > /dev/null
+    sudo chmod +x /bin/gpg-agent
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
