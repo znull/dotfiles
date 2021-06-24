@@ -46,15 +46,21 @@ export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/L
 export UNAME=$(uname)
 
 function agent() {
-    local sock=~/.ssh/sockets/agent-"$1"
-    if [[ -S $sock ]]
+    if [[ -n $1 ]]
     then
-        export SSH_AUTH_SOCK=$sock
-        ssh-add -l &>2
-    else
-        echo "$sock is not a socket"
-        return 1
+        local sock=~/.ssh/sockets/agent-"$1"
+        if [[ -S $sock ]]
+        then
+            export SSH_AUTH_SOCK=$sock
+        else
+            echo "$sock is not a socket"
+            return 1
+        fi
     fi
+    (
+        echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+        ssh-add -l
+    ) >&2
 }
 
 if [[ $USER = build && $HOME = /workspace ]]
