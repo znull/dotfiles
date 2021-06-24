@@ -50,6 +50,7 @@ function agent() {
     if [[ -S $sock ]]
     then
         export SSH_AUTH_SOCK=$sock
+        ssh-add -l &>2
     else
         echo "$sock is not a socket"
         return 1
