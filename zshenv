@@ -57,10 +57,11 @@ function agent() {
             return 1
         fi
     fi
-    (
+    if [[ $- == *i* ]]
+    then
         echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
         ssh-add -l
-    ) >&2
+    fi >&2
 }
 
 if [[ $USER = build && $HOME = /workspace ]]
