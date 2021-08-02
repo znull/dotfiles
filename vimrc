@@ -108,7 +108,7 @@ nmap <Leader>m :FZFMru<cr>
 nmap <Leader>ev :e $HOME/.vimrc<CR>
 nmap <Leader>f :set fileformat=unix<CR>
 nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
-nmap <Leader>h :nohlsearch<CR>:SyntasticReset<CR>
+nmap <Leader>h :nohlsearch<CR>
 nmap <Leader>p :let @" = expand("%")<cr>
 nmap <Leader>s :source $HOME/.vimrc<CR>
 
