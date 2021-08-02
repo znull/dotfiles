@@ -78,4 +78,4 @@ esac
 [[ -s ~/.vim/autoload/plug.vim ]] ||
     curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim --not-a-term +'PlugInstall --sync' +qall
-ln -rnsv .vim/plugged/fzf/bin/fzf bin
+ln -rnsfv .vim/plugged/fzf/bin/fzf bin
