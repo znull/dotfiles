@@ -26,6 +26,8 @@ then
     sudo dpkg-divert --rename /usr/bin/gpg-agent
     echo '#!/bin/sh' | sudo tee /bin/gpg-agent > /dev/null
     sudo chmod +x /bin/gpg-agent
+
+    ( cd ~/enterprise2 && git config receive.denyCurrentBranch updateInstead )
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
