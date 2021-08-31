@@ -2,7 +2,7 @@
 
 cd || exit 1
 
-if [[ $HOSTNAME = *.github.net ]]
+if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
     rm -vf .bash* .profile
 fi
@@ -10,6 +10,18 @@ fi
 install -d -m 0700 .tmp .ssh/sockets
 install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} .vim/{autoload,colors}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
+
+if [[ -n $CODESPACES ]]
+then
+    mv .zshrc .zshrc-codespaces
+    ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
+    [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
+    if [[ $(getent passwd "$USER") != */zsh ]]
+    then
+        chsh -s /bin/zsh
+    fi
+    apt install -y exa git/buster-backports git-man/buster-backports
+fi
 
 # GHES
 if [[ $USER = build && $HOME = /workspace ]]
