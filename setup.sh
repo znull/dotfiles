@@ -20,7 +20,7 @@ then
     then
         chsh -s /bin/zsh
     fi
-    apt install -y exa git/buster-backports git-man/buster-backports
+    apt install -y exa exuberant-ctags git/buster-backports git-man/buster-backports
 fi
 
 # GHES
