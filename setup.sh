@@ -1,5 +1,7 @@
 #! /bin/bash
 
+[[ -n $CODESPACES ]] && set -x
+
 cd || exit 1
 
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
