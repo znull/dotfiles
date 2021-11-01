@@ -12,6 +12,7 @@ then
 fi
 
 [[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
+[[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
 
 # on macOS, calling setup_PATH in .zshenv is too early because
 # /etc/zprofile will stomp it with eval `/usr/libexec/path_helper -s`
