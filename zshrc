@@ -82,6 +82,7 @@ fi
 if command -v dircolors > /dev/null
 then
     eval `dircolors`
+    export LS_COLORS="$LS_COLORS:ow=103;30;01"
     export LSOPT="$LSOPT --color"
 fi
 alias l="ls -CF $LSOPT"
