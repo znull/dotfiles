@@ -24,7 +24,7 @@ then
     fi
     sudo -n apt install -y exa exuberant-ctags
     gem install ripper-tags
-    go get -u github.com/jstemmer/gotags
+    go install github.com/jstemmer/gotags@4c0c4330071a994fbdfdff68f412d768fbcca313
 fi
 
 # GHES
