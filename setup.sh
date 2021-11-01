@@ -15,16 +15,24 @@ install -d -m 0700 .tmp .ssh/sockets
 install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} .vim/{autoload,colors}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
+apt_install() {
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y exuberant-ctags ripgrep tmux
+}
+
+chsh_zsh() {
+    if [[ $(getent passwd "$USER") != */zsh ]]
+    then
+        sudo -n chsh -s /bin/zsh $USER
+    fi
+}
+
 if [[ -n $CODESPACES ]]
 then
     mv .zshrc .zshrc-codespaces
     ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
-    if [[ $(getent passwd "$USER") != */zsh ]]
-    then
-        sudo -n chsh -s /bin/zsh $USER
-    fi
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y exuberant-ctags
+    chsh_zsh
+    apt_install
     gem install ripper-tags
     go install github.com/jstemmer/gotags@4c0c4330071a994fbdfdff68f412d768fbcca313
 fi
@@ -32,11 +40,12 @@ fi
 # GHES
 if [[ $USER = build && $HOME = /workspace ]]
 then
-    sudo -n chsh -s /bin/zsh build
+    chsh_zsh
+    apt_install
+
     gpg --import .dotfiles/5D27B87E.gpg
 
     rm -f ~/.gitconfig
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install exuberant-ctags ripgrep
 
     ln -rnsv .dotfiles/git-gpg .config/git/gpg
 
