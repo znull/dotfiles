@@ -4,6 +4,8 @@
 
 cd || exit 1
 
+USER=${USER:-$(id -un)}
+
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
     rm -vf .bash* .profile
