@@ -24,7 +24,7 @@ then
     then
         sudo -n chsh -s /bin/zsh $USER
     fi
-    sudo -n apt install -y exuberant-ctags
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y exuberant-ctags
     gem install ripper-tags
     go install github.com/jstemmer/gotags@4c0c4330071a994fbdfdff68f412d768fbcca313
 fi
@@ -36,12 +36,12 @@ then
     gpg --import .dotfiles/5D27B87E.gpg
 
     rm -f ~/.gitconfig
-    sudo apt install exuberant-ctags ripgrep
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install exuberant-ctags ripgrep
 
     ln -rnsv .dotfiles/git-gpg .config/git/gpg
 
-    sudo dpkg-divert --rename /bin/gpg-agent
-    sudo dpkg-divert --rename /usr/bin/gpg-agent
+    sudo -n dpkg-divert --rename /bin/gpg-agent
+    sudo -n dpkg-divert --rename /usr/bin/gpg-agent
     ln -nsf /bin/true /usr/bin/gpg-agent
 
     ( cd ~/enterprise2 && git config receive.denyCurrentBranch updateInstead )
