@@ -22,15 +22,7 @@ then
     then
         sudo -n chsh -s /bin/zsh $USER
     fi
-    apt install -y \
-        exa \
-        exuberant-ctags \
-        git/buster-backports \
-        git-man/buster-backports \
-        golang/buster-backports \
-        golang-doc/buster-backports \
-        golang-go/buster-backports \
-        golang-src/buster-backports
+    sudo -n apt install -y exa exuberant-ctags
     gem install ripper-tags
     go get -u github.com/jstemmer/gotags
 fi
