@@ -20,7 +20,7 @@ then
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     if [[ $(getent passwd "$USER") != */zsh ]]
     then
-        chsh -s /bin/zsh
+        sudo -n chsh -s /bin/zsh $USER
     fi
     apt install -y \
         exa \
