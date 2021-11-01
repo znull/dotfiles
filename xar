@@ -22,7 +22,7 @@ do
             unace x "$archive"
         ;;
         *.bz2|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z|*.zst)
-            tar -axvf "$archive"
+            tar -xvf "$archive"
         ;;
         *.cpio)
             cpio -div < "$archive"
