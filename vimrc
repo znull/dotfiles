@@ -158,7 +158,7 @@ if $USER != 'root' || exists("$DVORAK")
     call Dvorak()
 
     " vim-surround maps ds, which creates a delay when hitting 'd'
-    autocmd VimEnter * nunmap ds
+    autocmd VimEnter * silent! nunmap ds
 endif
 
 " cycle buffers
