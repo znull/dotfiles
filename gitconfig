@@ -2,6 +2,12 @@
     path = ~/.config/git/gpg
     path = ~/.config/git/local
 
+#[url "git@github.com:"]
+#    insteadOf = https://github.com/
+
+[credential "https://github.com/"]
+    username = znull
+
 [alias]
     br = branch
     bv = branch -vv
