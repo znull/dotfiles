@@ -25,6 +25,7 @@
     sw = !sh -c ":; { git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | grep -v \"^$(git branch --show-current)\\$\"; git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/origin/ ; } | fzf --preview 'git log --color=always {}' | perl -pe \"s@^origin/@@\" | xargs --no-run-if-empty git switch"
     this = rev-parse --abbrev-ref @
     up = "!db=$(git symbolic-ref refs/remotes/origin/HEAD) ; db=\"${db##*/}\"; set -x; git pull origin \"$db\""
+    split-remote = "!f() { rem=$(git config remote.origin.url); rem=${rem##*/}; rem=${rem%*.git}; git remote set-url origin https://github.com/github/\"$rem\"; git remote set-url --push origin git@github.com:github/\"$rem\".git; git remote -v; }; f"
 
     # https://tekin.co.uk/2020/06/jump-from-a-git-commit-to-the-pr-in-one-command
     merge-commits = "!f() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; f"
