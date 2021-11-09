@@ -13,6 +13,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-airline/vim-airline'
+Plug 'ojroques/vim-oscyank'
 
 call plug#end()
 
@@ -137,6 +138,8 @@ nmap <Leader>a <Plug>(EasyAlign)
 " copy/paste
 imap <S-C-v> <esc>"+gpa
 vmap <C-C> "+y
+vnoremap <leader>c :OSCYank<CR>
+nmap <leader>o <Plug>OSCYank
 
 function! Dvorak ()
     noremap d h
