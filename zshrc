@@ -436,7 +436,7 @@ then
     zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
     precmd() {
         vcs_info
-        PROMPT="$RCOLOR"'['"$HCOLOR%m$RCOLOR]$PCHROOT${vcs_info_msg_0_}(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)$CPNONE "      # ➤ • ❯
+        PROMPT="$RCOLOR"'['"$HCOLOR${CODESPACE_NAME:-%m}$RCOLOR]$PCHROOT${vcs_info_msg_0_}(%?)%(1j. |${jobtexts%% *}|.)%(!. #.➤)$CPNONE "      # ➤ • ❯
     }
 
     dirhide() {
