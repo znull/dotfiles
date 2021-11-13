@@ -2,10 +2,10 @@
 
 if [[ -z $1 ]]
 then
-    gh cs list --json createdAt,gitStatus,name,repository --template '{{range . }}Host cs.{{.repository}}.{{.gitStatus.ref}} cs.{{.repository}}.{{.gitStatus.ref}}.{{.createdAt}}
+    gh cs list --json createdAt,gitStatus,name,repository --template '{{range . }}Host cs.{{.name}}.{{.gitStatus.ref}} cs.{{.repository}}.{{.gitStatus.ref}}
     hostname {{.name}}
 
-{{end}}Host cs.github/github.*
+{{end}}Host cs.*github-github*
     user root
 
 Host cs.*
@@ -15,7 +15,7 @@ Host cs.*
     stricthostkeychecking no
     loglevel quiet
     controlmaster auto
-' > ~/.config/ssh.d/codespaces
+' | perl -pe 'tr@/@-@ if /^Host /'  > ~/.config/ssh.d/codespaces
     exit 0
 fi
 
