@@ -45,6 +45,8 @@ export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
 export UNAME=$(uname)
 
+[[ -n $CODESPACES && -z $LANG ]] && export LANG=en_US.utf-8
+
 function agent() {
     if [[ -n $1 ]]
     then
