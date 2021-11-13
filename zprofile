@@ -1,16 +1,16 @@
 #! /bin/zsh
 
-if [[ $HOSTNAME = *.github.net ]]
+if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
-    if [[ -n $BASH && $- == *i* ]]
+    if [[ -n $BASH && $- == *i* ]] && command -v zsh > /dev/null
     then
         exec zsh -l
     fi
 
     export EMAIL=znull@github.com
-    export PROMPT_COLOR=lightred
 fi
 
+[[ $HOSTNAME = *.github.net ]] && export PROMPT_COLOR=lightred
 [[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
 [[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
 
