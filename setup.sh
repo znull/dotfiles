@@ -57,6 +57,7 @@ then
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
+ln -rnsv .dotfiles/gh_ssh_shim bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
 ln -rnsv .dotfiles/inputrc .inputrc
