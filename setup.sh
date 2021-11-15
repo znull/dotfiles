@@ -100,6 +100,6 @@ case "$OSTYPE" in
     ;;
 esac
 
-git -C .dotfiles submodule update --recursive
+git -C .dotfiles submodule update --init --recursive
 command -v fzf >/dev/null || vim --not-a-term +'call fzf#install()' +qall
 ln -rnsfv .dotfiles/vim/pack/plugin/start/fzf/bin/fzf bin
