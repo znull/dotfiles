@@ -25,3 +25,6 @@
 [submodule "vim/pack/plugin/start/vim-oscyank"]
 	path = vim/pack/plugin/start/vim-oscyank
 	url = https://github.com/ojroques/vim-oscyank
+[submodule "vim/pack/plugin/opt/copilot"]
+	path = vim/pack/plugin/opt/copilot
+	url = https://github.com/github/copilot.vim.git
