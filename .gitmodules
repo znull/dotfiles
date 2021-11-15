@@ -1,0 +1,24 @@
+[submodule "vim/pack/plugin/start/vim-airline"]
+	path = vim/pack/plugin/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "vim/pack/plugin/start/fzf-mru.vim"]
+	path = vim/pack/plugin/start/fzf-mru.vim
+	url = https://github.com/pbogut/fzf-mru.vim
+[submodule "vim/pack/plugin/start/fzf.vim"]
+	path = vim/pack/plugin/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "vim/pack/plugin/start/fzf"]
+	path = vim/pack/plugin/start/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "vim/pack/plugin/start/vim-repeat"]
+	path = vim/pack/plugin/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "vim/pack/plugin/start/vim-sensible"]
+	path = vim/pack/plugin/start/vim-sensible
+	url = https://github.com/tpope/vim-sensible
+[submodule "vim/pack/plugin/start/vim-surround"]
+	path = vim/pack/plugin/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim/pack/plugin/start/vim-sleuth"]
+	path = vim/pack/plugin/start/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth
