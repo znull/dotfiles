@@ -228,12 +228,12 @@ fi
 # fzf completion
 if [[ -n $ZSH_NAME ]]
 then
-    [[ $- == *i* ]] && source ~/.vim/plugged/fzf/shell/completion.zsh
-    source ~/.vim/plugged/fzf/shell/key-bindings.zsh
+   [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
+    source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.zsh
 elif [ -n "$BASH_VERSION" ]
 then
-    [[ $- == *i* ]] && source ~/.vim/plugged/fzf/shell/completion.bash
-    source ~/.vim/plugged/fzf/shell/key-bindings.bash
+    [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.bash
+    source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
 fi
 
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
