@@ -15,6 +15,7 @@ setup_PATH() {
         /bin \
         /usr/sbin \
         /usr/bin \
+        '/Applications/VMware Fusion.app/Contents/Library' \
         '/Applications/VMware Fusion.app/Contents/Public'
     do
         if [[ -d $dir ]]
