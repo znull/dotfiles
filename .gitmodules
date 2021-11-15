@@ -22,3 +22,6 @@
 [submodule "vim/pack/plugin/start/vim-sleuth"]
 	path = vim/pack/plugin/start/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "vim/pack/plugin/start/vim-oscyank"]
+	path = vim/pack/plugin/start/vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank
