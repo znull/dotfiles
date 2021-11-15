@@ -236,6 +236,8 @@ then
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
 fi
 
+[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
 then
     eval "$(rbenv init -)"
