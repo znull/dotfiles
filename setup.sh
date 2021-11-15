@@ -104,3 +104,5 @@ case "$OSTYPE" in
     ;;
 esac
 
+command -v fzf >/dev/null || vim --not-a-term +'call fzf#install()' +qall
+ln -rnsfv .dotfiles/vim/pack/plugin/start/fzf/bin/fzf bin
