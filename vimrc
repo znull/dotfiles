@@ -1,21 +1,10 @@
+if !has("nvim")
+    set runtimepath^=~/.local/share/nvim/site runtimepath+=~/.local/share/nvim/site/after
+    let &packpath = &runtimepath
+endif
+
 set encoding=utf-8
 scriptencoding utf-8
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'vim-airline/vim-airline'
-Plug 'ojroques/vim-oscyank'
-
-call plug#end()
 
 abbr Jaosn Jason
 abbr Jsaon Jason
@@ -110,7 +99,11 @@ ounmap Q
 nmap <C-P> :FZF<cr>
 nmap <Leader>m :FZFMru<cr>
 
-nmap <Leader>ev :e $HOME/.vimrc<CR>
+if has("nvim")
+    nmap <Leader>ev :e $HOME/.config/nvim/init.vim<CR>
+else
+    nmap <Leader>ev :e $HOME/.vimrc<CR>
+endif
 nmap <Leader>f :set fileformat=unix<CR>
 nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
 nmap <Leader>h :nohlsearch<CR>

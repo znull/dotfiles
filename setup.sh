@@ -12,7 +12,7 @@ then
 fi
 
 install -d -m 0700 .tmp .ssh/sockets
-install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} .vim/{autoload,colors}
+install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}/nvim
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
 apt_install() {
@@ -61,12 +61,13 @@ ln -rnsv .dotfiles/gh_ssh_shim bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
 ln -rnsv .dotfiles/inputrc .inputrc
-ln -rnsv .dotfiles/jellybeans.vim .vim/colors
 ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
 ln -rnsv .dotfiles/pythonrc .pythonrc
 ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
+ln -rnsv .dotfiles/vimrc .config/nvim/init.vim
+ln -rnsv .dotfiles/vim .local/share/nvim/site
 ln -rnsv .dotfiles/xar bin
 ln -rnsv .dotfiles/zprofile .bash_profile
 ln -rnsv .dotfiles/zprofile .zprofile
@@ -103,7 +104,3 @@ case "$OSTYPE" in
     ;;
 esac
 
-[[ -s ~/.vim/autoload/plug.vim ]] ||
-    curl -sfLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim --not-a-term +'PlugInstall --sync' +qall
-ln -rnsfv .vim/plugged/fzf/bin/fzf bin
