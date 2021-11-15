@@ -77,11 +77,7 @@ ln -rnsv .dotfiles/zshrc .zshrc
 
 command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
-(
-    cd .dotfiles
-    git remote set-url origin https://github.com/znull/dotfiles.git
-    git remote set-url --push origin git@github.com:znull/dotfiles.git
-)
+( cd .dotfiles && git split-remote )
 
 case "$OSTYPE" in
     darwin*)
