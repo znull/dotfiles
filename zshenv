@@ -15,6 +15,7 @@ setup_PATH() {
         /bin \
         /usr/sbin \
         /usr/bin \
+        "$GO_INSTALL_PATH" \
         '/Applications/VMware Fusion.app/Contents/Library' \
         '/Applications/VMware Fusion.app/Contents/Public'
     do
@@ -46,7 +47,9 @@ export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
 export UNAME=$(uname)
 
-[[ -n $CODESPACES && -z $LANG ]] && export LANG=en_US.utf-8
+[[ -n $CODESPACES && -z $LANG ]] && export LANG=C.utf-8
+
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 function agent() {
     if [[ -n $1 ]]
