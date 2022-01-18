@@ -19,6 +19,7 @@ fi
 [[ $OSTYPE = darwin* ]] && setup_PATH
 
 umask 022
+stty -ixon
 
 test -n "$BASH" && source ~/.dotfiles/zshenv
 
