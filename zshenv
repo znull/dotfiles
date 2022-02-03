@@ -47,6 +47,11 @@ export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST=America/Los_Angeles,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
 export UNAME=$(uname)
 
+# github.com goproxy https://github.com/github/goproxy/blob/main/doc/user.md#set-up
+export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
+export GONOSUMDB='github.com/github/*'
+export GONOPROXY=
+
 [[ -n $CODESPACES && -z $LANG ]] && export LANG=C.utf-8
 
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
