@@ -1,34 +1,4 @@
 #! /bin/bash
 
-if [[ -z $1 ]]
-then
-    gh cs list --json createdAt,gitStatus,name,repository --template '{{range . }}Host cs.{{.name}}.{{.gitStatus.ref}} cs.{{.repository}}.{{.gitStatus.ref}}
-    hostname {{.name}}
-
-{{end}}Host cs.*github-github*
-    user root
-
-Host cs.*
-    user codespace
-    proxycommand gh_ssh_shim %h
-    userknownhostsfile=/dev/null
-    stricthostkeychecking no
-    loglevel quiet
-    controlmaster auto
-' | perl -pe 'tr@/@-@ if /^Host /'  > ~/.config/ssh.d/codespaces
-    exit 0
-fi
-
-free_port(){
-    python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
-}
-
 set -x
-port=$(free_port)
-tmp=$(mktemp)
-gh cs ssh --server-port=$port -c "$1" -- -T -N -o proxycommand='sleep infinity' </dev/null >/dev/null 2>"$tmp" &
-while ! grep Connection.Details: "$tmp" &> /dev/null
-do
-    sleep 0.1
-done
-exec nc localhost $port
+gh cs ssh --config > ~/.config/ssh.d/codespaces
