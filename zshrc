@@ -133,6 +133,7 @@ then
     compdef mosh=ssh
     compdef msh=ssh
     compdef tsh=ssh
+    compdef sshfs=scp
 
     # use vi line editing
     KEYTIMEOUT=20
