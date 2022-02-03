@@ -340,6 +340,10 @@ function fa() {
     find . -iname "*$1*"
 }
 
+function gh_token() {
+    gh config get --host github.com oauth_token
+}
+
 function msh() {
     local host=$1
     shift
