@@ -16,7 +16,7 @@ install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
 apt_install() {
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y exuberant-ctags ripgrep tmux
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y universal-ctags ripgrep tmux
 }
 
 chsh_zsh() {
@@ -81,7 +81,7 @@ command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
 case "$OSTYPE" in
     darwin*)
-        brew install ascii coreutils ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
+        brew install ascii coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
     ;;
 
     linux*)
