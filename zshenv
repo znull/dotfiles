@@ -51,8 +51,14 @@ export UNAME=$(uname)
 export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
 export GONOSUMDB='github.com/github/*'
 export GONOPROXY=
+export GOPRIVATE=
 
-[[ -n $CODESPACES && -z $LANG ]] && export LANG=C.utf-8
+if [[ -n $CODESPACES ]]
+then
+    [[ -z $LANG ]] && export LANG=C.utf-8
+    [[ $GITHUB_REPOSITORY = github/github ]] &&
+        echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
+fi
 
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
