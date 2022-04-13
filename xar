@@ -21,7 +21,7 @@ do
         *.ace)
             unace x "$archive"
         ;;
-        *.bz2|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z|*.zst)
+        *.bz2|*.gem|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z|*.zst)
             tar -xvf "$archive"
         ;;
         *.cpio)
