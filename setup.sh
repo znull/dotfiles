@@ -79,6 +79,12 @@ command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
 ( cd .dotfiles && git split-remote )
 
+# Prefer system tic over linuxbrew's, which doesn't work for some reason
+for tic in /usr/bin/tic tic
+do
+    $tic -xe alacritty,alacritty-direct - < .dotfiles/alacritty.info && break
+done
+
 case "$OSTYPE" in
     darwin*)
         brew install ascii coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
