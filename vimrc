@@ -113,7 +113,9 @@ nmap <Leader>s :source $HOME/.vimrc<CR>
 nmap <C-q> @q
 imap <C-B> {<CR>}
 nmap :E :e
+nmap :W :w
 nmap :X :x
+nmap :mkae :make
 nmap :Q :q
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
