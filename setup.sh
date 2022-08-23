@@ -33,7 +33,6 @@ then
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     chsh_zsh
     apt_install
-    command -v gem >/dev/null && sudo gem install ripper-tags
     go install github.com/jstemmer/gotags@4c0c4330071a994fbdfdff68f412d768fbcca313
 fi
 

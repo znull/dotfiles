@@ -18,6 +18,7 @@ alias ci='git commit'
 alias dus='du -sh *| sort -h'
 alias dv='export DVORAK=true'
 alias gg='git sw'
+alias ghtags='script/build-ctags; ctags -R --append vendor/gitrpc'
 alias grl='git remote | xargs git remote show -n'
 alias issh="ssh -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile /dev/null' -o 'loglevel error'"
 alias st='git status -sb'
