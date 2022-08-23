@@ -225,6 +225,8 @@ then
         hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*})
         zstyle ':completion:*:hosts' hosts $hosts
     fi
+
+    command -v kubectl > /dev/null && source <(kubectl completion zsh)
 fi
 
 # fzf completion
