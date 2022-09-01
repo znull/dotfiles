@@ -28,3 +28,9 @@
 [submodule "vim/pack/plugin/opt/copilot"]
 	path = vim/pack/plugin/opt/copilot
 	url = https://github.com/github/copilot.vim.git
+[submodule "vim/pack/plugin/start/vim-fugitive"]
+	path = vim/pack/plugin/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/pack/plugin/start/vim-rhubarb"]
+	path = vim/pack/plugin/start/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
