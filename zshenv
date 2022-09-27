@@ -1,7 +1,7 @@
 #! /bin/zsh
 
 setup_PATH() {
-    unset PATH
+    [[ -n $CODESPACES ]] || unset PATH
 
     for dir in \
         ~/bin \
