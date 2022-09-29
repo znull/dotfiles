@@ -73,6 +73,8 @@ let mapleader = ','
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
+let g:go_fmt_command = 'gofmt'
+
 set background=dark
 set confirm
 set pastetoggle=<F8>
