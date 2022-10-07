@@ -74,6 +74,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 let g:go_fmt_command = 'gofmt'
+let g:go_metalinter_command = 'golangci-lint'
 
 set background=dark
 set confirm
