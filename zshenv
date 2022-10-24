@@ -44,7 +44,7 @@ export MANPAGER=manpager
 export MOSH_ESCAPE_KEY=$(echo -e '\x1c')        # fixes C-^ switching in vim
 export PAGER=less
 export PYTHONSTARTUP=~/.pythonrc
-export TZ_LIST=America/Denver,America/Chicago,America/New_York,UTC,Europe/London,Europe/Berlin
+export TZ_LIST=America/Los_Angeles,America/Denver,America/Chicago,America/New_York,UTC,Europe/London #,Europe/Berlin
 export UNAME=$(uname)
 
 # github.com goproxy https://github.com/github/goproxy/blob/main/doc/user.md#set-up
