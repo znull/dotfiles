@@ -58,6 +58,7 @@ then
     [[ -z $LANG ]] && export LANG=C.utf-8
     [[ $GITHUB_REPOSITORY = github/github ]] &&
         echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
+    export BROWSER=browser
 fi
 
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

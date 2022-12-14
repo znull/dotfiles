@@ -16,7 +16,7 @@ install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
 apt_install() {
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y universal-ctags ripgrep tmux
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y universal-ctags ripgrep socat tmux
 }
 
 chsh_zsh() {
@@ -33,7 +33,7 @@ then
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     chsh_zsh
     apt_install
-    go install github.com/jstemmer/gotags@4c0c4330071a994fbdfdff68f412d768fbcca313
+    ln -rnsv .dotfiles/browser bin
 fi
 
 # GHES
