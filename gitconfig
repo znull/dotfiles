@@ -38,10 +38,11 @@
     }; f"
 
     # https://tekin.co.uk/2020/06/jump-from-a-git-commit-to-the-pr-in-one-command
-    merge-commits = "!f() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; f"
-    pr-number = "!f() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; f"
-    web-url = "!f() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; f"
-    pr = "!f() { echo \"`git web-url`/pull/`git pr-number $1`\" ;}; f"
+    #merge-commits = "!f() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; f"
+    #pr-number = "!f() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\\\s*\\\\([0-9]*\\\\).*$/\\\\1/p\"; }; f"
+    #web-url = "!f() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; f"
+    #pr = "!f() { echo \"`git web-url`/pull/`git pr-number $1`\" ;}; f"
+    pr = !gh pr list --state all --search 
 
 [color]
     branch = auto
