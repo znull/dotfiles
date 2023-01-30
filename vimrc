@@ -129,6 +129,8 @@ nmap <End> G
 vmap <End> G
 nmap <Space> <C-f>
 nmap <C-e> :e#<CR>
+nmap <Leader>b :GBrowse<CR>
+vmap <Leader>b :GBrowse<CR>
 
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
