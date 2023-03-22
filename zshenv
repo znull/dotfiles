@@ -56,8 +56,6 @@ export GOPRIVATE=
 if [[ -n $CODESPACES ]]
 then
     [[ -z $LANG ]] && export LANG=C.utf-8
-    [[ $GITHUB_REPOSITORY = github/github ]] &&
-        echo "machine goproxy.githubapp.com login nobody password $GITHUB_TOKEN" >> $HOME/.netrc
     export BROWSER=browser
 fi
 
