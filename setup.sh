@@ -28,7 +28,7 @@ chsh_zsh() {
 
 if [[ -n $CODESPACES ]]
 then
-    mv .zshrc .zshrc-codespaces
+    mv -n .zshrc .zshrc-codespaces
     ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     chsh_zsh
