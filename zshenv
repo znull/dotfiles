@@ -1,35 +1,30 @@
 #! /bin/zsh
 
-setup_PATH() {
-    [[ -n $CODESPACES ]] || unset PATH
+for dir in \
+    ~/bin \
+    ~/.cargo/bin \
+    ~/go/bin \
+    /usr/local/opt/coreutils/libexec/gnubin \
+    /usr/local/opt/findutils/libexec/gnubin \
+    /usr/local/sbin \
+    /usr/local/bin \
+    /sbin \
+    /bin \
+    /usr/sbin \
+    /usr/bin \
+    "$GO_INSTALL_PATH" \
+    '/Applications/VMware Fusion.app/Contents/Library' \
+    '/Applications/VMware Fusion.app/Contents/Public'
+do
+    if [[ -d $dir ]]
+    then
+        [[ -n $PATH ]] && PATH=$PATH:
+        PATH=$PATH$dir
+    fi
+done
 
-    for dir in \
-        ~/bin \
-        ~/.cargo/bin \
-        ~/go/bin \
-        /usr/local/opt/coreutils/libexec/gnubin \
-        /usr/local/opt/findutils/libexec/gnubin \
-        /usr/local/sbin \
-        /usr/local/bin \
-        /sbin \
-        /bin \
-        /usr/sbin \
-        /usr/bin \
-        "$GO_INSTALL_PATH" \
-        '/Applications/VMware Fusion.app/Contents/Library' \
-        '/Applications/VMware Fusion.app/Contents/Public'
-    do
-        if [[ -d $dir ]]
-        then
-            [[ -n $PATH ]] && PATH=$PATH:
-            PATH=$PATH$dir
-        fi
-    done
-
-    export PATH
-}
-
-setup_PATH
+export PATH
+DOTFILES_PATH=$PATH
 
 export DVORAK=true
 export EDITOR=vim
