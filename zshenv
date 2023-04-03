@@ -88,3 +88,5 @@ for rc in ~/.config/env.d/*
 do
     source "$rc"
 done
+
+[[ -n $ZSH_NAME ]] && typeset -U path

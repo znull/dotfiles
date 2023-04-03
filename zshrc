@@ -467,4 +467,6 @@ do
     source "$rc"
 done
 
+[[ -n $ZSH_NAME ]] && typeset -U path
+
 # vim: sw=4 et
