@@ -23,6 +23,8 @@ do
     fi
 done
 
+[[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
+
 export PATH
 DOTFILES_PATH=$PATH
 
