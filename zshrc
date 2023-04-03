@@ -4,8 +4,10 @@ if [[ -z $GHE_DEV && $HOSTNAME = *.github.net ]]
 then
     OLDLESS=$LESS
 
+    tPATH=$PATH
     source /etc/profile
-    export PATH=~/bin:$PATH
+    export PATH=~/bin:$PATH:$tPATH
+    unset tPATH
 
     LESS=$OLDLESS
     unset OLDLESS
