@@ -493,6 +493,7 @@ hi! link Conceal Operator
 
 call s:X("Type","ffb964","","","Yellow","")
 call s:X("NonText","606060",s:background_color,"",s:termBlack,"")
+call s:X("Whitespace","303030",s:background_color,"",s:termBlack,"")
 
 call s:X("SpecialKey","444444","1c1c1c","",s:termBlack,"")
 
