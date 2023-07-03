@@ -1,5 +1,7 @@
 #! /bin/zsh
 
+ppath "zprofile start"
+
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
     if [[ -n $BASH && $- == *i* ]] && command -v zsh > /dev/null
@@ -41,3 +43,5 @@ do
 done
 
 test "$BASH" && test -r ~/.bashrc && source ~/.bashrc
+
+ppath "zprofile end"

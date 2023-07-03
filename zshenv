@@ -2,6 +2,15 @@
 
 if [[ -o login ]] || { [[ -n $BASH ]] && shopt -q login_shell }
 then
+    function ppath() {
+        name=$1
+        pn=${2:-$PATH}
+        echo -ne "@@@@@@@@@@@@@@ path -> $name:\n\t" >&2
+        sed -e's/:/\n\t/g' <<< $pn >&2
+    }
+
+    ppath "zshenv before"
+
     PATH_ORIG=$PATH
     PATH=
 
@@ -42,6 +51,8 @@ then
 
     unset -f pappend
 
+    ppath "zshenv mid"
+
     [[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
 
     if [[ -n $CODESPACES ]]
@@ -55,8 +66,11 @@ then
     PATH=$PATH:$PATH_ORIG
     PATH_DOTFILES=$PATH
     export PATH
+else
+    alias ppath=:
 fi
 
+ppath "zshenv after"
 export DOTFILES_INIT_ENV=true
 export EDITOR=vim
 export VISUAL=$EDITOR

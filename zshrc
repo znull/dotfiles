@@ -1,5 +1,7 @@
 #! /bin/zsh
 
+ppath "zshrc start"
+
 if [[ -z $GHE_DEV && $HOSTNAME = *.github.net ]]
 then
     OLDLESS=$LESS
@@ -472,5 +474,7 @@ for rc in ~/.config/rc.d/*
 do
     source "$rc"
 done
+
+ppath "zshrc end"
 
 # vim: sw=4 et
