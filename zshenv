@@ -13,7 +13,6 @@ pappend() {
 
 for dir in \
     ~/bin \
-    ~/.rbenv/shims \
     ~/.cargo/bin \
     ~/go/bin \
     /usr/local/opt/coreutils/libexec/gnubin \
@@ -42,15 +41,17 @@ unset -f pappend
 
 [[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
 
-PATH=$PATH:$PATH_ORIG
-PATH_DOTFILES=$PATH
-export PATH
-
 if [[ -n $CODESPACES ]]
 then
     [[ -z $LANG ]] && export LANG=C.utf-8
     export BROWSER=browser
+    [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
+    PATH=$PATH:$PATH_LINUXBREW
 fi
+
+PATH=$PATH:$PATH_ORIG
+PATH_DOTFILES=$PATH
+export PATH
 
 export DVORAK=true
 export EDITOR=vim
@@ -73,8 +74,6 @@ export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direc
 export GONOSUMDB='github.com/github/*'
 export GONOPROXY=
 export GOPRIVATE=
-
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
 
 function agent() {
     if [[ -n $1 ]]

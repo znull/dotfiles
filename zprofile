@@ -8,6 +8,9 @@ then
     fi
 
     export EMAIL=znull@github.com
+
+    # restore PATH in case ill-behaved system dotfiles overwrote it
+    export PATH=$PATH:$PATH_DOTFILES
 fi
 
 [[ $HOSTNAME = *.github.net ]] && export PROMPT_COLOR=lightred

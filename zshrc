@@ -242,6 +242,7 @@ fi
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
 then
     eval "$(rbenv init -)"
+    PATH_PRIO=$PATH_PRIO:$(dirname $(realpath $(command -v ruby)))
 fi
 
 function akfp() {
