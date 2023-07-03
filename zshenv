@@ -1,32 +1,56 @@
 #! /bin/zsh
 
+PATH_ORIG=$PATH
+PATH=
+
+pappend() {
+    if [[ -d $1 ]]
+    then
+        [[ -n $PATH ]] && PATH=$PATH:
+        PATH=$PATH$1
+    fi
+}
+
 for dir in \
     ~/bin \
+    ~/.rbenv/shims \
     ~/.cargo/bin \
     ~/go/bin \
     /usr/local/opt/coreutils/libexec/gnubin \
-    /usr/local/opt/findutils/libexec/gnubin \
+    /usr/local/opt/findutils/libexec/gnubin
+do
+    pappend "$dir"
+done
+
+PATH_PRIO=$PATH
+
+for dir in \
+    "$GO_INSTALL_PATH" \
     /usr/local/sbin \
     /usr/local/bin \
     /sbin \
     /bin \
     /usr/sbin \
     /usr/bin \
-    "$GO_INSTALL_PATH" \
     '/Applications/VMware Fusion.app/Contents/Library' \
     '/Applications/VMware Fusion.app/Contents/Public'
 do
-    if [[ -d $dir ]]
-    then
-        [[ -n $PATH ]] && PATH=$PATH:
-        PATH=$PATH$dir
-    fi
+    pappend "$dir"
 done
+
+unset -f pappend
 
 [[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
 
+PATH=$PATH:$PATH_ORIG
+PATH_DOTFILES=$PATH
 export PATH
-DOTFILES_PATH=$PATH
+
+if [[ -n $CODESPACES ]]
+then
+    [[ -z $LANG ]] && export LANG=C.utf-8
+    export BROWSER=browser
+fi
 
 export DVORAK=true
 export EDITOR=vim
@@ -50,13 +74,7 @@ export GONOSUMDB='github.com/github/*'
 export GONOPROXY=
 export GOPRIVATE=
 
-if [[ -n $CODESPACES ]]
-then
-    [[ -z $LANG ]] && export LANG=C.utf-8
-    export BROWSER=browser
-fi
-
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
 
 function agent() {
     if [[ -n $1 ]]

@@ -1,8 +1,8 @@
 if [[ -n $CODESPACES ]]
 then
-        export PATH=~/bin:$PATH:$DOTFILES_PATH
+        export PATH=$PATH_PRIO:$PATH:$PATH_DOTFILES:$PATH_LINUXBREW
 else
-        export PATH=~/bin:$DOTFILES_PATH:$PATH
+        export PATH=$PATH_PRIO:$PATH_DOTFILES:$PATH:$PATH_LINUXBREW
 fi
 typeset -U path
-unset DOTFILES_PATH
+unset PATH_DOTFILES PATH_LINUXBREW PATH_ORIG PATH_PRIO
