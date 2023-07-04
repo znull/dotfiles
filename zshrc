@@ -242,7 +242,7 @@ fi
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
 then
     eval "$(rbenv init -)"
-    PATH_PRIO=$PATH_PRIO:$(dirname $(realpath $(command -v ruby)))
+    [[ -n $PATH_ORIG ]] && PATH_PRIO=$PATH_PRIO:$(dirname $(realpath $(command -v ruby)))
 fi
 
 function akfp() {
@@ -464,7 +464,5 @@ for rc in ~/.config/rc.d/*
 do
     source "$rc"
 done
-
-[[ -n $ZSH_NAME ]] && typeset -U path
 
 # vim: sw=4 et

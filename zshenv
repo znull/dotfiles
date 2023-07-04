@@ -1,57 +1,60 @@
 #! /bin/zsh
 
-PATH_ORIG=$PATH
-PATH=
-
-pappend() {
-    if [[ -d $1 ]]
-    then
-        [[ -n $PATH ]] && PATH=$PATH:
-        PATH=$PATH$1
-    fi
-}
-
-for dir in \
-    ~/bin \
-    ~/.cargo/bin \
-    ~/go/bin \
-    /usr/local/opt/coreutils/libexec/gnubin \
-    /usr/local/opt/findutils/libexec/gnubin
-do
-    pappend "$dir"
-done
-
-PATH_PRIO=$PATH
-
-for dir in \
-    "$GO_INSTALL_PATH" \
-    /usr/local/sbin \
-    /usr/local/bin \
-    /sbin \
-    /bin \
-    /usr/sbin \
-    /usr/bin \
-    '/Applications/VMware Fusion.app/Contents/Library' \
-    '/Applications/VMware Fusion.app/Contents/Public'
-do
-    pappend "$dir"
-done
-
-unset -f pappend
-
-[[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
-
-if [[ -n $CODESPACES ]]
+if [[ -o login ]] || { [[ -n $BASH ]] && shopt -q login_shell }
 then
-    [[ -z $LANG ]] && export LANG=C.utf-8
-    export BROWSER=browser
-    [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
-    PATH=$PATH:$PATH_LINUXBREW
-fi
+    PATH_ORIG=$PATH
+    PATH=
 
-PATH=$PATH:$PATH_ORIG
-PATH_DOTFILES=$PATH
-export PATH
+    pappend() {
+        if [[ -d $1 ]]
+        then
+            [[ -n $PATH ]] && PATH=$PATH:
+            PATH=$PATH$1
+        fi
+    }
+
+    for dir in \
+        ~/bin \
+        ~/.cargo/bin \
+        ~/go/bin \
+        /usr/local/opt/coreutils/libexec/gnubin \
+        /usr/local/opt/findutils/libexec/gnubin
+    do
+        pappend "$dir"
+    done
+
+    PATH_PRIO=$PATH
+
+    for dir in \
+        "$GO_INSTALL_PATH" \
+        /usr/local/sbin \
+        /usr/local/bin \
+        /sbin \
+        /bin \
+        /usr/sbin \
+        /usr/bin \
+        '/Applications/VMware Fusion.app/Contents/Library' \
+        '/Applications/VMware Fusion.app/Contents/Public'
+    do
+        pappend "$dir"
+    done
+
+    unset -f pappend
+
+    [[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
+
+    if [[ -n $CODESPACES ]]
+    then
+        [[ -z $LANG ]] && export LANG=C.utf-8
+        export BROWSER=browser
+        [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
+        PATH=$PATH:$PATH_LINUXBREW
+    fi
+
+    PATH=$PATH:$PATH_ORIG
+    PATH_DOTFILES=$PATH
+    export PATH
+fi
 
 export DVORAK=true
 export EDITOR=vim
@@ -105,5 +108,3 @@ for rc in ~/.config/env.d/*
 do
     source "$rc"
 done
-
-[[ -n $ZSH_NAME ]] && typeset -U path
