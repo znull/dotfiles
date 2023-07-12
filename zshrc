@@ -8,6 +8,14 @@ then
     unset OLDLESS
 fi
 
+if [[ $- = *i* && -z $DOTFILES_INIT_PROFILE ]] && command -v zsh > /dev/null
+then
+    # interactive shell without dotfiles login? re-exec login shell
+    set -x
+    export DOTFILES_INIT_PROFILE=true
+    exec zsh -l
+fi
+
 alias ....='cd ../../..'
 alias ...='cd ../..'
 alias ..='cd ..'
