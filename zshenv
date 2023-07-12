@@ -17,6 +17,7 @@ then
         ~/bin \
         ~/.cargo/bin \
         ~/go/bin \
+        /workspaces/github/bin \
         /usr/local/opt/coreutils/libexec/gnubin \
         /usr/local/opt/findutils/libexec/gnubin
     do
