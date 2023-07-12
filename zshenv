@@ -56,7 +56,7 @@ then
     export PATH
 fi
 
-export DVORAK=true
+export DOTFILES_INIT_ENV=true
 export EDITOR=vim
 export VISUAL=$EDITOR
 export FZF_CTRL_T_COMMAND='fd --type file --color=always'

@@ -159,7 +159,7 @@ function! Dvorak ()
 endfunction
 
 " Dvorak mappings
-if $USER != 'root' || exists("$DVORAK")
+if $USER != 'root' || exists("$DOTFILES_INIT_ENV")
     noremap j gj
     noremap k gk
     call Dvorak()
