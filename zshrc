@@ -245,6 +245,7 @@ then
 fi
 
 [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+[[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
 
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
 then
