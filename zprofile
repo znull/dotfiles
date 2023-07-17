@@ -5,6 +5,7 @@ then
     if [[ -n $BASH && $- == *i* ]] && command -v zsh > /dev/null
     then
         set -x
+        : .zprofile: replace bash
         exec zsh -l
     fi
 
