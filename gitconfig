@@ -44,6 +44,7 @@
     #web-url = "!f() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; f"
     #pr = "!f() { echo \"`git web-url`/pull/`git pr-number $1`\" ;}; f"
     pr = !gh pr list --state all --search 
+    base = merge-base @ origin/HEAD
 
 [color]
     branch = auto
