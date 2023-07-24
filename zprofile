@@ -13,13 +13,14 @@ then
 
     # restore PATH in case ill-behaved system dotfiles overwrote it
     export PATH=$PATH:$PATH_DOTFILES
+
+    export PROMPT_COLOR=lightred
+    [[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
+    [[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
+    [[ $HOSTNAME = *-shell-*.github.net ]] && agent ssh
 fi
 
 export DOTFILES_INIT_PROFILE=true
-
-[[ $HOSTNAME = *.github.net ]] && export PROMPT_COLOR=lightred
-[[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
-[[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
 
 umask 022
 stty -ixon
