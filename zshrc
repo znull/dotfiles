@@ -437,6 +437,12 @@ test "$STY" && PCHROOT="$STY"
 test -r /etc/debian_chroot && PCHROOT="$(cat /etc/debian_chroot)"
 test "$PCHROOT" && TCHROOT="[${PCHROOT}]"
 test "$PCHROOT" && PCHROOT="[${CPNONE}${PCHROOT}$RCOLOR]"
+if [[ -n $GH_ENV ]]
+then
+    GH_SITE=${HOSTNAME#*.}
+    GH_SITE=${GH_SITE%%.*}
+fi
+
 if [[ -n $ZSH_NAME ]]
 then
     # zshmisc - PS1 docs
@@ -452,7 +458,8 @@ then
     zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
     precmd() {
         vcs_info
-        PROMPT="$RCOLOR"'['"$HCOLOR${CODESPACE_NAME:-%m}$RCOLOR]$PCHROOT${vcs_info_msg_0_}(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
+        local host_label=${CODESPACE_NAME:-%m}${GH_SITE:+.$GH_SITE}
+        PROMPT="$RCOLOR"'['"${HCOLOR}${host_label}${RCOLOR}]$PCHROOT${vcs_info_msg_0_}(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
     }
 
     dirhide() {
