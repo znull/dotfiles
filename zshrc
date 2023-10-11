@@ -359,16 +359,12 @@ function msh() {
     local mo
 
     case $host in
-        aplex|*@aplex|*.*) ;;
-
         ??)
             host=$host.databack.com
             set -- "$@" 'zsh -l'
             ;;
 
-        # using --experimental-remote-ip=remote has the side-effect of allowing
-        # CanonicalizeHostname to work when connecting
-        *) mo=--experimental-remote-ip=remote ;;
+        aplex|*@aplex|*.*|*) ;;
     esac
 
     mosh $mo "$host" -- tmux -2 new-session -AD -slunz "$@"
