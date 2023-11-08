@@ -38,3 +38,6 @@
 	path = vim/pack/plugin/start/vim-go
 	url = https://github.com/fatih/vim-go
 	branch = v1.26
+[submodule "vim/pack/plugin/start/vim-puppet"]
+	path = vim/pack/plugin/start/vim-puppet
+	url = https://github.com/rodjek/vim-puppet.git
