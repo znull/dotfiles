@@ -15,6 +15,7 @@ then
 
     for dir in \
         ~/bin \
+        ~/.local/bin \
         ~/.cargo/bin \
         ~/go/bin \
         /workspaces/github/bin \
