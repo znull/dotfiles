@@ -391,6 +391,10 @@ function oports() {
     esac
 }
 
+function osc52() {
+    echo -en "\x1b]52;c;$(base64)\x07"
+}
+
 function tsh() {
     local host=$1
     shift
