@@ -5,24 +5,14 @@ then
     PATH_ORIG=$PATH
     PATH=
 
-    pappend() {
-        if [[ -d $1 ]]
-        then
-            [[ -n $PATH ]] && PATH=$PATH:
-            PATH=$PATH$1
-        fi
-    }
-
     for dir in \
         ~/bin \
         ~/.local/bin \
         ~/.cargo/bin \
         ~/go/bin \
-        /workspaces/github/bin \
-        /usr/local/opt/coreutils/libexec/gnubin \
-        /usr/local/opt/findutils/libexec/gnubin
+        /workspaces/github/bin
     do
-        pappend "$dir"
+        [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
     done
 
     PATH_PRIO=$PATH
@@ -34,16 +24,13 @@ then
         /sbin \
         /bin \
         /usr/sbin \
-        /usr/bin \
-        '/Applications/VMware Fusion.app/Contents/Library' \
-        '/Applications/VMware Fusion.app/Contents/Public'
+        /usr/bin
     do
-        pappend "$dir"
+        [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
     done
 
-    unset -f pappend
-
     [[ -r /data/github/shell/bin/gh-environment ]] && source /data/github/shell/bin/gh-environment
+    [[ -r ~/.config/path ]] && source ~/.config/path
 
     if [[ -n $CODESPACES ]]
     then
