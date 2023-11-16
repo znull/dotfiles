@@ -8,7 +8,11 @@ USER=${USER:-$(id -un)}
 
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
-    rm -vf .bash* .profile
+    install -d -m 0700 .csorig
+    for cfg in .bash* .profile .zprofile .zshrc
+    do
+        test -f "$cfg" && mv -vf "$cfg" .csorig
+    done
 fi
 
 install -d -m 0700 .tmp .ssh/sockets
@@ -28,7 +32,6 @@ chsh_zsh() {
 
 if [[ -n $CODESPACES ]]
 then
-    mv -n .zshrc .zshrc-codespaces
     ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     chsh_zsh
