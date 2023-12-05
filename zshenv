@@ -83,6 +83,7 @@ function agent() {
     then
         echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
         ssh-add -l
+        [[ $? -ne 2 ]]  # 2 is "unable to contact the authentication agent"
     fi >&2
 }
 
