@@ -116,6 +116,7 @@ then
     SAVEHIST=1000
 
     test -d /usr/local/share/zsh-completions && fpath=(/usr/local/share/zsh-completions $fpath)
+    test -d /opt/homebrew/share/zsh/site-functions && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
     # The following lines were added by compinstall
     zstyle ':completion:*' completer _complete _correct
