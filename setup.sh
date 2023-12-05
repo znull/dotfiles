@@ -58,6 +58,28 @@ then
     ( cd ~/enterprise2 && git config receive.denyCurrentBranch updateInstead )
 fi
 
+case "$OSTYPE" in
+    darwin*)
+	export PATH=/opt/homebrew/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
+        brew install ascii coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
+    ;;
+
+    linux*)
+        ver=v8.2.1
+        dir=fd-$ver-x86_64-unknown-linux-gnu
+        url=https://github.com/sharkdp/fd/releases/download/
+        sum=fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8
+        curl -sL $url/$ver/$dir.tar.gz | tar -xz -C bin --strip-components=1 $dir/fd
+        [[ $(shasum -a 256 bin/fd) = 'fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8  bin/fd' ]] || rm -vf bin/fd
+
+        if [[ $UID = 0 && -f /etc/debian_version ]]
+        then
+            install -d -m 0755 ~/.aptitude
+            ln -nsf ../.dotfiles/aptitude .aptitude/config
+        fi
+    ;;
+esac
+
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gh_ssh_shim bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
@@ -87,27 +109,6 @@ for tic in /usr/bin/tic tic
 do
     $tic -xe alacritty,alacritty-direct - < .dotfiles/alacritty.info && break
 done
-
-case "$OSTYPE" in
-    darwin*)
-        brew install ascii coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
-    ;;
-
-    linux*)
-        ver=v8.2.1
-        dir=fd-$ver-x86_64-unknown-linux-gnu
-        url=https://github.com/sharkdp/fd/releases/download/
-        sum=fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8
-        curl -sL $url/$ver/$dir.tar.gz | tar -xz -C bin --strip-components=1 $dir/fd
-        [[ $(shasum -a 256 bin/fd) = 'fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8  bin/fd' ]] || rm -vf bin/fd
-
-        if [[ $UID = 0 && -f /etc/debian_version ]]
-        then
-            install -d -m 0755 ~/.aptitude
-            ln -nsf ../.dotfiles/aptitude .aptitude/config
-        fi
-    ;;
-esac
 
 git -C .dotfiles submodule update --init --recursive
 ln -rnsfv .dotfiles/vim/pack/plugin/start/fzf/bin/fzf bin
