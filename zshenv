@@ -9,8 +9,7 @@ then
         ~/bin \
         ~/.local/bin \
         ~/.cargo/bin \
-        ~/go/bin \
-        /workspaces/github/bin
+        ~/go/bin
     do
         [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
     done
