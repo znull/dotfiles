@@ -1,4 +1,0 @@
-#! /bin/bash
-
-set -x
-gh cs ssh --config > ~/.config/ssh.d/codespaces
