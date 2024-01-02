@@ -11,7 +11,7 @@ then
     install -d -m 0700 .csorig
     for cfg in .bash* .profile .zprofile .zshrc
     do
-        test -f "$cfg" && mv -vf "$cfg" .csorig
+        test -f "$cfg" && mv -nvf "$cfg" .csorig
     done
 fi
 
