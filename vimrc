@@ -140,8 +140,10 @@ nmap <Leader>a <Plug>(EasyAlign)
 " copy/paste
 imap <S-C-v> <esc>"+gpa
 vmap <C-C> "+y
-vnoremap <leader>c :OSCYank<CR>
-nmap <leader>o <Plug>OSCYank
+
+nmap <leader>c <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c <Plug>OSCYankVisual
 
 function! Dvorak ()
     noremap d h
