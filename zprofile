@@ -42,8 +42,6 @@ else
     export ORGANIZATION='PBR Streetgang'
 fi
 
-command -v lesspipe > /dev/null && eval $(lesspipe)
-
 for profile in ~/.config/profile.d/*
 do
     source "$profile"

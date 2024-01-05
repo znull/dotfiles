@@ -60,8 +60,8 @@ fi
 
 case "$OSTYPE" in
     darwin*)
-	export PATH=/opt/homebrew/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
-        brew install ascii coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
+        export PATH=/opt/homebrew/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
+        brew install ascii bat coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
     ;;
 
     linux*)
@@ -72,6 +72,11 @@ case "$OSTYPE" in
         curl -sL $url/$ver/$dir.tar.gz | tar -xz -C bin --strip-components=1 $dir/fd
         [[ $(shasum -a 256 bin/fd) = 'fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8  bin/fd' ]] || rm -vf bin/fd
 
+        (
+            batcat=$(command -v batcat)
+            [[ -n $batcat ]] && ln -nsv $batcat bin/bat
+        )
+
         if [[ $UID = 0 && -f /etc/debian_version ]]
         then
             install -d -m 0755 ~/.aptitude
@@ -79,6 +84,12 @@ case "$OSTYPE" in
         fi
     ;;
 esac
+
+if command -v bat > /dev/null
+then
+    install -d -m 0755 $(bat --config-dir)
+    ln -rnsv .dotfiles/bat $(bat --config-file)
+fi
 
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gh_ssh_shim bin
@@ -99,8 +110,6 @@ ln -rnsv .dotfiles/zprofile .zprofile
 ln -rnsv .dotfiles/zshenv .zshenv
 ln -rnsv .dotfiles/zshrc .bashrc
 ln -rnsv .dotfiles/zshrc .zshrc
-
-command -v lesskey > /dev/null && lesskey .dotfiles/lesskey
 
 ( cd .dotfiles && git split-remote )
 

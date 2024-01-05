@@ -52,10 +52,9 @@ export FZF_DEFAULT_COMMAND=$FZF_CTRL_T_COMMAND
 export FZF_DEFAULT_OPTS='--ansi'
 export HOSTNAME=${HOSTNAME:-"$(hostname)"}
 export LESS='-iqsMRXSF -x4'	# added for psql: SFx4
-export MANOPT=-Pmanpager
 export MANPAGER=manpager
 [[ $- = *i* ]] && export MOSH_ESCAPE_KEY=$(echo -e '\x1c')        # fixes C-^ switching in vim
-export PAGER=less
+export PAGER=bat
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST='America/Los_Angeles;America/Denver;America/Chicago;America/New_York;UTC;Europe/London' #;Europe/Berlin
 export UNAME=$(uname)
