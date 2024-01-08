@@ -37,6 +37,7 @@ then
         export BROWSER=browser
         [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
         PATH=$PATH:$PATH_LINUXBREW
+        export HOMEBREW_NO_INSTALL_CLEANUP=1
     fi
 
     PATH=$PATH:$PATH_ORIG
