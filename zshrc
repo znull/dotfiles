@@ -22,7 +22,6 @@ alias ..='cd ..'
 alias ci='git commit'
 alias dus='du -sh *| sort -h'
 alias gg='git sw'
-alias ghtags='script/build-ctags --exclude=ui/packages; ctags -R --append vendor/gitrpc'
 alias grl='git remote | xargs git remote show -n'
 alias issh="ssh -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile /dev/null' -o 'loglevel error'"
 alias st='git status -sb'

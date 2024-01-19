@@ -1,0 +1,3 @@
+#!/bin/sh
+script/build-ctags --exclude=ui/packages
+ctags -R --append vendor/gitrpc

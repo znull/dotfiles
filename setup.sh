@@ -37,6 +37,13 @@ then
     chsh_zsh
     apt_install
     ln -rnsv .dotfiles/browser bin
+    [[ -d /workspaces/github ]] && (
+        cd /workspaces/github
+        git config core.untrackedCache true
+        time git log > /dev/null
+        time ~/.dotfiles/ghtags
+        time git status
+    ) &
 fi
 
 # GHES
@@ -93,6 +100,7 @@ fi
 
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/gh_ssh_shim bin
+ln -rnsv .dotfiles/ghtags bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
 ln -rnsv .dotfiles/inputrc .inputrc
