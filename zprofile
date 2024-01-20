@@ -25,6 +25,11 @@ then
     esac
 
     [[ $HOSTNAME = *-shell-*.github.net ]] && agent ssh
+
+    (
+        creation_log=/workspaces/.codespaces/.persistedshare/creation.log
+        [[ -f $creation_log ]] && savelog $creation_log
+    )
 fi
 
 export DOTFILES_INIT_PROFILE=true
