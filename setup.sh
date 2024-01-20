@@ -9,7 +9,7 @@ USER=${USER:-$(id -un)}
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
     install -d -m 0700 .csorig
-    for cfg in .bash* .profile .zprofile .zshrc
+    for cfg in .bash* .profile .zprofile .zsh*
     do
         test -f "$cfg" && mv -nvf "$cfg" .csorig
     done
