@@ -127,5 +127,11 @@ do
 done
 
 git -C .dotfiles submodule update --init --recursive
-ln -rnsfv .dotfiles/vim/pack/plugin/start/fzf/bin/fzf bin
-command -v fzf >/dev/null || vim --not-a-term +'call fzf#install()' +qall
+
+(
+    fzf_bin=.dotfiles/vim/pack/plugin/start/fzf/bin/fzf
+    mv $fzf_bin $fzf_bin.prev
+    vim --not-a-term +'call fzf#install()' +qall
+    ln -rnsfv $fzf_bin bin
+    fzf --version
+)
