@@ -20,7 +20,7 @@ install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 
 apt_install() {
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y universal-ctags ripgrep socat tmux
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux
 }
 
 chsh_zsh() {
