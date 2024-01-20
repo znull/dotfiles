@@ -43,7 +43,7 @@ then
         time git log > /dev/null
         time ~/.dotfiles/ghtags
         time git status
-    ) &
+    ) &> /workspaces/.codespaces/.persistedshare/warmup.log &
 fi
 
 # GHES
