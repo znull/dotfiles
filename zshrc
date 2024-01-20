@@ -246,6 +246,7 @@ fi
 
 [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
 [[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
+[[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
 
 if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
 then
