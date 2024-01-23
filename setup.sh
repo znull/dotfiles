@@ -96,8 +96,6 @@ if command -v bat > /dev/null
 then
     install -d -m 0755 $(bat --config-dir)
     ln -rnsv .dotfiles/bat $(bat --config-file)
-else
-    ln -s $(command -v less) bin/bat
 fi
 
 ln -rnsv .dotfiles/ctags .ctags
