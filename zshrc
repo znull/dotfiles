@@ -354,6 +354,12 @@ function gh_token() {
     gh config get --host github.com oauth_token
 }
 
+function hl() {
+    pattern=$1
+    shift
+    grep --color=always "$@" -E "$pattern|$"
+}
+
 function msh() {
     local host=$1
     shift
