@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-if [[ -o login ]] || { [[ -n $BASH ]] && shopt -q login_shell }
+if [[ -o login ]] || ( [[ -n $BASH ]] && shopt -q login_shell )
 then
     PATH_ORIG=$PATH
     PATH=
