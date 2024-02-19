@@ -108,11 +108,16 @@ then
     alias ds='echo "${dirstack[@]}"'
     cdpath=(~ ~/src)
 
-    # history
-    setopt hist_ignore_all_dups hist_ignore_space hist_reduce_blanks hist_save_no_dups share_history
+    setopt HIST_EXPIRE_DUPS_FIRST
+    setopt HIST_IGNORE_ALL_DUPS
+    setopt HIST_IGNORE_SPACE
+    setopt HIST_REDUCE_BLANKS
+    setopt HIST_SAVE_NO_DUPS
+    setopt INC_APPEND_HISTORY_TIME
+    setopt EXTENDED_HISTORY
     HISTFILE=~/.histfile
-    HISTSIZE=1000
-    SAVEHIST=1000
+    HISTSIZE=100000
+    SAVEHIST=10000
 
     test -d /usr/local/share/zsh-completions && fpath=(/usr/local/share/zsh-completions $fpath)
     test -d /opt/homebrew/share/zsh/site-functions && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
