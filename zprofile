@@ -15,9 +15,9 @@ then
     export PATH=$PATH:$PATH_DOTFILES
 
     case "$GH_ENV" in
-        production)    export PROMPT_COLOR=lightred ;;
-        staff-wus2-01) export PROMPT_COLOR=green    ;;
-        ?*)            export PROMPT_COLOR=black    ;;
+        production)    export PROMPT_COLOR=yellow ;;
+        staff-wus2-01) export PROMPT_COLOR=green  ;;
+        ?*)            export PROMPT_COLOR=black  ;;
         *)
             [[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
             [[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
