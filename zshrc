@@ -27,6 +27,7 @@ alias issh="ssh -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile /dev/null' 
 alias st='git status -sb'
 alias sv='sort | v'
 alias v="$PAGER"
+alias vj='bat -l json'
 alias vd='git diff | vim -R -'
 alias vp='vim -R -M -'
 
