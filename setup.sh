@@ -18,6 +18,7 @@ fi
 install -d -m 0700 .tmp .ssh/sockets
 install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}/nvim
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
+export PATH=~/bin:$PATH
 
 apt_install() {
     sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux
