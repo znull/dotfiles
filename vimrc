@@ -173,6 +173,5 @@ endif
 
 " cycle buffers
 nnoremap <C-n> :bn<CR>
-nnoremap <BS> <C-^>
 
 " vim: sw=4 et
