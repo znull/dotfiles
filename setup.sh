@@ -68,8 +68,10 @@ fi
 
 case "$OSTYPE" in
     darwin*)
-        export PATH=/opt/homebrew/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
-        brew install ascii bat coreutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
+        export HOMEBREW_PREFIX=$(brew --prefix)
+        [[ -d "$HOMEBREW_PREFIX" ]] && echo "export HOMEBREW_PREFIX=$HOMEBREW_PREFIX" > ~/.config/env.d/brew
+        export PATH=$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH
+        brew install ascii bat coreutils diffutils universal-ctags daemon fd findutils gh git git-lfs htop jq mosh mtr openssh pstree ripgrep socat tmux tree vim watch xz zsh-completions
     ;;
 
     linux*)
