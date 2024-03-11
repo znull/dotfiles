@@ -1,3 +1,27 @@
 #!/bin/sh
-script/build-ctags --exclude=ui/packages
-ctags -R --append vendor/gitrpc "$(ls -d vendor/gems/*/ruby/*/gems/rugged-* | sort -V | tail -n1)"
+script/build-ctags \
+  --exclude=app/api/description/config/meta_schema.json \
+  --exclude='app/api/schemas/*.json' \
+  --exclude=config/cwe-data.json \
+  --exclude=config/sponsors-iso3166.json \
+  --exclude='*.css' \
+  --exclude=lib/github/unidecode/codepoints.json \
+  --exclude=lib/global_id_migration/artifacts \
+  --exclude='lib/search/*.json' \
+  --exclude='npm-workspaces/*.json' \
+  --exclude=package-lock.json \
+  --exclude=packages/extensibility/test/models/command_palette/results \
+  --exclude=packages/health/app/models/trust_tiers/persisted_engaged_oss.json \
+  --exclude='public/*.json' \
+  --exclude='script/grep-classname' \
+  --exclude='script/stylelint-remove-disables' \
+  --exclude='*.scss' \
+  --exclude='*.svg' \
+  --exclude='test/e2e/*.json' \
+  --exclude=ui/packages
+
+ctags -R --append \
+  --exclude='vendor/gems/*/ruby/*/gems/rugged-*/vendor/libgit2/build' \
+  --exclude='vendor/gems/*/ruby/*/gems/rugged-*/vendor/libgit2/deps' \
+  vendor/gitrpc \
+  "$(ls -d vendor/gems/*/ruby/*/gems/rugged-* | sort -V | tail -n1)"
