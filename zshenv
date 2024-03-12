@@ -33,6 +33,10 @@ then
 
     if [[ -n $CODESPACES ]]
     then
+        if [[ -e /workspaces/.codespaces/.persistedshare/creation.log ]]
+        then
+            timeout 2m tail -f /workspaces/.codespaces/.persistedshare/creation.log | sed '/Finished configuring codespace/ q'
+        fi
         [[ -z $LANG ]] && export LANG=C.utf-8
         export BROWSER=browser
         [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
