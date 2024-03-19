@@ -19,6 +19,7 @@ then
     for dir in \
         "$GO_INSTALL_PATH" \
         /usr/local/sbin \
+        ~/bin/brew \
         /usr/local/bin \
         /sbin \
         /bin \
