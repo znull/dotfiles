@@ -21,8 +21,14 @@ do
         *.ace)
             unace v "$archive"
         ;;
-        *.bz2|*.gem|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z|*.zst)
+        *.bz2|*.gem|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z)
             tar -tvf "$archive"
+        ;;
+        *tar.zst)
+            zstdcat -d "$archive" | tar -tv
+        ;;
+        *.tar.zst.gpg)
+            gpg < "$archive" | zstdcat -d | tar -tv
         ;;
         *.cpio)
             cpio -tv < "$archive"
