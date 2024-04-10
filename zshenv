@@ -52,7 +52,7 @@ then
 
     # like this, for example:
     [[ -r /workspaces/.codespaces/shared/.env ]] &&
-        source <(perl -ne "next if /'/; s/=/='/; s/$/'/; print" < /workspaces/.codespaces/shared/.env)
+        source <(perl -ne "next unless /^[^'=]+=[^']+$/; s/^/export /; s/=/='/; s/$/'/; print" < /workspaces/.codespaces/shared/.env)
 
     export PATH
 fi
