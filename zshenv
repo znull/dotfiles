@@ -45,8 +45,15 @@ then
         export HOMEBREW_NO_INSTALL_CLEANUP=1
     fi
 
-    PATH=$PATH:$PATH_ORIG
-    PATH_DOTFILES=$PATH
+    # after PATH_DOTFILES is set, we assume $PATH will be overwritten or
+    # modified, and restore it (keeping changes) in .zlogin
+    PATH_DOTFILES=$PATH:$PATH_ORIG
+    PATH=$PATH_DOTFILES
+
+    # like this, for example:
+    [[ -r /workspaces/.codespaces/shared/.env ]] &&
+        source <(perl -ne "next if /'/; s/=/='/; s/$/'/; print" < /workspaces/.codespaces/shared/.env)
+
     export PATH
 fi
 
