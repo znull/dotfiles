@@ -10,6 +10,7 @@ then
         ~/.local/bin \
         ~/.cargo/bin \
         /workspaces/github/bin \
+        /workspaces/github/vendor/gitrpcd/build \
         ~/go/bin
     do
         [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
