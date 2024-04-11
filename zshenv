@@ -9,6 +9,7 @@ then
         ~/bin \
         ~/.local/bin \
         ~/.cargo/bin \
+        /workspaces/github/bin \
         ~/go/bin
     do
         [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
@@ -40,8 +41,11 @@ then
         fi
         [[ -z $LANG ]] && export LANG=C.utf-8
         export BROWSER=browser
-        [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
-        PATH=$PATH:$PATH_LINUXBREW
+        if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]
+        then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | sed -e 's/export PATH=/export PATH_LINUXBREW=/')"
+            [[ -n "$PATH_LINUXBREW" ]] && PATH=$PATH:$PATH_LINUXBREW
+        fi
         export HOMEBREW_NO_INSTALL_CLEANUP=1
     fi
 
