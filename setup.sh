@@ -21,6 +21,7 @@ touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 export PATH=~/bin:$PATH
 
 apt_install() {
+    sudo -n apt update
     sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux
 }
 
