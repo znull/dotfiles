@@ -24,6 +24,9 @@ do
         *.bz2|*.gem|*.tar.gz|*.tgz|*.tar.lz|*.tar.lzma|*.tar.lzo|*.tar.xz|*.tar.z)
             tar -tvf "$archive"
         ;;
+        *.tar.gz.gpg)
+            gpg < "$archive" | tar -tv
+        ;;
         *tar.zst)
             zstdcat -d "$archive" | tar -tv
         ;;
