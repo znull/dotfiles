@@ -30,6 +30,15 @@ alias v="$PAGER"
 alias vj='bat -l json'
 alias vd='git diff | vim -R -'
 alias vp='vim -R -M -'
+alias nz="tr '\n' '\0'"
+alias zn="tr '\0' '\n'"
+alias versions="nz | xargs -0 sha1sum | sort"
+
+matches() {
+    sz=$(stat -c '%s' "$1")
+    csum=$(sha1sum "$1" | awk '{ print $1 }')
+    find -type f -size ${sz}c -print0 | xargs -0 sha1sum | grep $csum
+}
 
 case "$OSTYPE" in
     darwin*)
