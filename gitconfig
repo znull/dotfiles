@@ -57,6 +57,8 @@
     renames = copies
     tool = diffmerge
     renamelimit = 30000
+    srcPrefix =
+    dstPrefix =
 
 [difftool "diffmerge"]
     cmd = diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
