@@ -72,12 +72,20 @@ case "$OSTYPE" in
     ;;
 
     linux*)
-        ver=v8.2.1
-        dir=fd-$ver-x86_64-unknown-linux-gnu
+        if [[ $(uname -m) = aarch64 ]]
+        then
+            ver=v10.1.0
+            arch=aarch64
+            sum=b45c04c8613be390d36685c8a5c6baef690db94ef162b1af93f4cd17bf3bb87a
+        else
+            ver=v8.2.1
+            arch=x86_64
+            sum=fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8
+        fi
+        dir=fd-$ver-$arch-unknown-linux-gnu
         url=https://github.com/sharkdp/fd/releases/download/
-        sum=fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8
         curl -sL $url/$ver/$dir.tar.gz | tar -xz -C bin --strip-components=1 $dir/fd
-        [[ $(shasum -a 256 bin/fd) = 'fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8  bin/fd' ]] || rm -vf bin/fd
+        [[ $(shasum -a 256 bin/fd | tee /dev/stderr) = "$sum  bin/fd" ]] || rm -vf bin/fd
 
         (
             batcat=$(command -v batcat)
