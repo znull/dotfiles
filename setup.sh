@@ -123,7 +123,7 @@ ln -rnsv .dotfiles/zshrc .zshrc
 # Prefer system tic over linuxbrew's, which doesn't work for some reason
 for tic in /usr/bin/tic tic
 do
-    $tic -xe alacritty,alacritty-direct - < .dotfiles/alacritty.info && break
+    $tic -xe alacritty,alacritty-direct .dotfiles/alacritty.info && break
 done
 
 git -C .dotfiles submodule update --init --recursive
