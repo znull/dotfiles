@@ -263,11 +263,7 @@ fi
 [[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
 [[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
 
-if [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null
-then
-    eval "$(rbenv init -)"
-    [[ -n $PATH_ORIG ]] && PATH_PRIO=$PATH_PRIO:$(dirname $(realpath $(command -v ruby)))
-fi
+[[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null && eval "$(rbenv init -)"
 
 function akfp() {
     local ak=${1:-~/.ssh/authorized_keys}

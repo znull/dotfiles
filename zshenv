@@ -1,11 +1,18 @@
 #! /bin/zsh
 
+path_debug() {
+    echo "== $@" >&2
+    tr : '\n' <<<"$PATH" >&2
+    echo >&2
+}
+
 if [[ -o login ]] || ( [[ -n $BASH ]] && shopt -q login_shell )
 then
     PATH_ORIG=$PATH
     PATH=
 
     for dir in \
+        ~/.rbenv/shims \
         ~/bin \
         ~/.local/bin \
         ~/.cargo/bin \

@@ -1,5 +1,8 @@
 #! /bin/zsh
 
+# on macos, /etc/zprofile probably clobbered our zshenv path
+[[ $UNAME = Darwin ]] && PATH=$PATH_DOTFILES:$PATH
+
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
     if [[ -n $BASH && $- == *i* ]] && command -v zsh > /dev/null
