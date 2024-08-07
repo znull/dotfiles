@@ -24,5 +24,8 @@ ctags -R --append \
   --exclude='vendor/gems/*/ruby/*/gems/rugged-*/vendor/libgit2/build' \
   --exclude='vendor/gems/*/ruby/*/gems/rugged-*/vendor/libgit2/deps' \
   vendor/gitrpc \
+  "$(ls -d vendor/gems/*/ruby/*/gems/bert-* | sort -V | tail -n1)" \
+  "$(ls -d vendor/gems/*/ruby/*/gems/bertrpc-* | sort -V | tail -n1)" \
+  "$(ls -d vendor/gems/*/ruby/*/gems/mochilo-* | sort -V | tail -n1)" \
   "$(ls -d vendor/gems/*/ruby/*/gems/spokes-proto-* | sort -V | tail -n1)" \
   "$(ls -d vendor/gems/*/ruby/*/gems/rugged-* | sort -V | tail -n1)"
