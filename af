@@ -1,0 +1,8 @@
+#!/bin/bash
+awk="{print \$${1:-1}"
+shift 2> /dev/null
+for f in "$@"
+do
+    awk="$awk, \$$f"
+done
+awk "$awk}"
