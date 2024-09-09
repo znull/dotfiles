@@ -23,7 +23,7 @@ export PATH=~/bin:$PATH
 apt_install() {
     sudo -n apt clean
     sudo -n apt update
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux
+    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux mosh
 }
 
 chsh_zsh() {
