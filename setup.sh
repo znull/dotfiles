@@ -23,7 +23,8 @@ export PATH=~/bin:$PATH
 apt_install() {
     sudo -n apt clean
     sudo -n apt update
-    sudo -n DEBIAN_FRONTEND=noninteractive apt install -y bat universal-ctags ripgrep socat tmux mosh
+    sudo -n apt purge neovim
+    sudo -n DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bat universal-ctags ripgrep socat tmux mosh vim
 }
 
 chsh_zsh() {
