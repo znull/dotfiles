@@ -17,7 +17,8 @@ then
         ~/.local/bin \
         ~/.cargo/bin \
         /workspaces/github/vendor/gitrpcd/build \
-        ~/go/bin
+        ~/go/bin \
+        $(~/.config/path-prio 2>/dev/null)
     do
         [[ -d $dir ]] && PATH=$PATH${PATH:+:}$dir
     done
