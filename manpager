@@ -1,7 +1,7 @@
 #!/bin/bash
 if command -v bat &> /dev/null
 then
-    col -b | bat -l man
+    col -bx | bat -l man -p
 else
     col -b | vim -R -c "set ft=man nomod nolist title titlestring=$MAN_PN" -
 fi

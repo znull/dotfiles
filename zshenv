@@ -78,6 +78,7 @@ export FZF_DEFAULT_OPTS='--ansi'
 export HOSTNAME=${HOSTNAME:-"$(hostname)"}
 export LESS='-iqsMRXSF -x4'	# added for psql: SFx4
 export MANPAGER=manpager
+export MANROFFOPT=-c
 [[ $- = *i* ]] && export MOSH_ESCAPE_KEY=$(echo -e '\x1c')        # fixes C-^ switching in vim
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST='America/Los_Angeles;America/Denver;America/Chicago;America/New_York;UTC;Europe/London' #;Europe/Berlin
