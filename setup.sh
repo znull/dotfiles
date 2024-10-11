@@ -113,6 +113,7 @@ ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/ghtags bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
 ln -rnsv .dotfiles/gitignore .config/git/ignore
+ln -rnsv .dotfiles/git-ls-unreachable bin
 ln -rnsv .dotfiles/inputrc .inputrc
 ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
