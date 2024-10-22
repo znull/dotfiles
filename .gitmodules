@@ -41,3 +41,6 @@
 [submodule "vim/pack/plugin/start/vim-puppet"]
 	path = vim/pack/plugin/start/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
+[submodule "vim/pack/plugin/start/vim-farout"]
+	path = vim/pack/plugin/start/vim-farout
+	url = https://github.com/fcpg/vim-farout
