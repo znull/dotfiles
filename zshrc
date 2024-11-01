@@ -24,6 +24,7 @@ alias dus='du -sh *| sort -h'
 alias gg='git sw'
 alias grl='git remote | xargs git remote show -n'
 alias issh="ssh -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile /dev/null' -o 'loglevel error'"
+alias sgit=git
 alias st='git status -sb'
 alias sv='sort | v'
 alias v="$PAGER"
