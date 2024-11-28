@@ -8,11 +8,13 @@ USER=${USER:-$(id -un)}
 
 if [[ $HOSTNAME = *.github.net || -n $CODESPACES ]]
 then
-    install -d -m 0700 .csorig
-    for cfg in .bash* .profile .zprofile .zsh*
-    do
-        test -f "$cfg" && mv -nvf "$cfg" .csorig
-    done
+    if mkdir -m 0700 .csorig 2>/dev/null
+    then
+        for cfg in .bash* .profile .zprofile .zsh*
+        do
+            test -f "$cfg" && ! test -L "$cfg" && mv -nv "$cfg" .csorig
+        done
+    fi
 fi
 
 install -d -m 0700 .tmp .ssh/sockets
