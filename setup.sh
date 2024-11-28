@@ -69,25 +69,28 @@ then
     ( cd ~/enterprise2 && git config receive.denyCurrentBranch updateInstead )
 fi
 
+ghbin() {
+    local name=$1
+    local nwo=$2
+    local ver=$3
+    local sum=$4
+    local arch=$(uname -m)
+    [[ $arch = aarch64 ]] || sum=$5
+
+    local dir=$name-$ver-$arch-unknown-linux-gnu
+    local url=https://github.com/$nwo/releases/download/
+
+    curl -sL "$url/$ver/$dir.tar.gz" | tar -xz -C bin --strip-components=1 "$dir/$name"
+    [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] || rm -vf "bin/$name"
+}
+
 case "$OSTYPE" in
     darwin*)
     ;;
 
     linux*)
-        if [[ $(uname -m) = aarch64 ]]
-        then
-            ver=v10.1.0
-            arch=aarch64
-            sum=b45c04c8613be390d36685c8a5c6baef690db94ef162b1af93f4cd17bf3bb87a
-        else
-            ver=v8.2.1
-            arch=x86_64
-            sum=fc55b17aff9c7a1c2d0fc228b774bb27c33fce72e80fb2425d71bcef22a0cfd8
-        fi
-        dir=fd-$ver-$arch-unknown-linux-gnu
-        url=https://github.com/sharkdp/fd/releases/download/
-        curl -sL $url/$ver/$dir.tar.gz | tar -xz -C bin --strip-components=1 $dir/fd
-        [[ $(shasum -a 256 bin/fd | tee /dev/stderr) = "$sum  bin/fd" ]] || rm -vf bin/fd
+        ghbin fd sharkdp/fd v10.2.0 f03160ccf718e4aa9f1ed85755fa349670a4bebe483bde7dd3ee675ac42decbf eea818be74986760a1436c72135041c6ac3d709eea268554a11356e71f066a8e
+        ghbin delta dandavison/delta 0.18.2 7833733f45a128e96757254066b84f6baf553860a656bda4075c32fd735102a0 fad23fba816fec22fc808717a2b4e149d2651e76491f8dd020b4b82d7829a9da
 
         (
             batcat=$(command -v batcat)
