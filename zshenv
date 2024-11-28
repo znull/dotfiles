@@ -90,6 +90,7 @@ then
 else
     export PAGER=less
 fi
+export DELTA_PAGER=less
 
 # github.com goproxy https://github.com/github/goproxy/blob/main/doc/user.md#set-up
 export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct

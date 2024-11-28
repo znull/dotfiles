@@ -46,6 +46,16 @@
     interactive = auto
     status = auto
 
+[core]
+    pager = delta
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    #dark = true
+    #light = true
+
 [diff]
     algorithm = histogram
     renames = copies
@@ -72,6 +82,9 @@
 [init]
     defaultBranch = main
 
+[interactive]
+    diffFilter = delta --color-only
+
 [lfs]
     locksverify = false
 
@@ -79,8 +92,7 @@
     decorate = true
 
 [merge]
-    tool = diffmerge
-    conflictstyle = diff3
+    conflictstyle = zdiff3
     renamelimit = 30000
 
 [mergetool "diffmerge"]
