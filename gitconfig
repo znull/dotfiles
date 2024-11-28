@@ -51,6 +51,7 @@
 
 [delta]
     navigate = true    # use n and N to move between diff sections
+    hyperlinks = true
 
     # delta detects terminal colors automatically; set one of these to disable auto-detection
     #dark = true
@@ -114,3 +115,5 @@
 
 [user]
     name = Jason Lunz
+
+# vim: sw=4
