@@ -137,11 +137,8 @@ ln -rnsv .dotfiles/zshrc .zshrc
 
 ( cd .dotfiles && git split-remote )
 
-# Prefer system tic over linuxbrew's, which doesn't work for some reason
-for tic in /usr/bin/tic tic
-do
-    $tic -xe alacritty,alacritty-direct .dotfiles/alacritty.info && break
-done
+tic -xe alacritty,alacritty-direct .dotfiles/terminfo/alacritty
+tic -x .dotfiles/terminfo/ghostty
 
 git -C .dotfiles submodule update --init --recursive
 
