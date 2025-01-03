@@ -443,8 +443,8 @@ then
     RCOLOR="$HCOLOR"
     if [ "$LOGNAME" = root ]
     then
-        PCHCOLOR=$(color grey)
-        RCOLOR=$(color -p grey)
+        PCHCOLOR=$(color lightgrey)
+        RCOLOR=$(color -p lightgrey)
     else
         unset HCOLOR
     fi
