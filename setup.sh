@@ -36,6 +36,20 @@ chsh_zsh() {
     fi
 }
 
+configure_git() {
+    local git_version=$(git --version)
+    git_version=${git_version##* }
+    IFS=. read -r major minor _ <<<"$git_version"
+    if [[ $major -lt 2 || $major -eq 2 && $minor -lt 35 ]]
+    then
+        # zdiff3 not yet supported
+        git config -f .config/git/overrides --unset merge.conflictstyle
+    else
+        git config -f .config/git/overrides merge.conflictstyle zdiff3
+    fi
+}
+configure_git
+
 if [[ -n $CODESPACES ]]
 then
     ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
