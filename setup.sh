@@ -44,8 +44,10 @@ configure_git() {
     then
         # zdiff3 not yet supported
         git config -f .config/git/overrides --unset merge.conflictstyle
+        git config -f .config/git/overrides core.pager bat
     else
         git config -f .config/git/overrides merge.conflictstyle zdiff3
+        git config -f .config/git/overrides --unset core.pager
     fi
 }
 configure_git
