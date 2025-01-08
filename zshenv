@@ -69,6 +69,7 @@ then
     export PATH
 fi
 
+export COLORTERM=truecolor
 export DOTFILES_INIT_ENV=true
 export EDITOR=vim
 export VISUAL=$EDITOR
