@@ -128,6 +128,7 @@ case "$OSTYPE" in
     linux*)
         ghbin fd sharkdp/fd v10.2.0 f03160ccf718e4aa9f1ed85755fa349670a4bebe483bde7dd3ee675ac42decbf eea818be74986760a1436c72135041c6ac3d709eea268554a11356e71f066a8e
         ghbin delta dandavison/delta 0.18.2 7833733f45a128e96757254066b84f6baf553860a656bda4075c32fd735102a0 fad23fba816fec22fc808717a2b4e149d2651e76491f8dd020b4b82d7829a9da
+        ghbin zoxide ajeetdsouza/zoxide v0.9.6 2d793ae36470950e28a1e218767e9534f000127be9c9aab6da62401e1657c854 b652df2979a260f1d8abfd0d956ed0a4c7f67827c9ddc07415e862afba0c71b4 0.9.6 zoxide
 
         (
             batcat=$(command -v batcat)

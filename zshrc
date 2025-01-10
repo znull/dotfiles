@@ -252,13 +252,17 @@ fi
 # fzf completion
 if [[ -n $ZSH_NAME ]]
 then
-   [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
+    [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.zsh
+    eval "$(~/bin/zoxide init zsh)"
 elif [ -n "$BASH_VERSION" ]
 then
     [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.bash
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
+    eval "$(~/bin/zoxide init bash)"
 fi
+
+alias cd=z
 
 [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
 [[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
