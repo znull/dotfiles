@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -o pipefail
+
 [[ -n $CODESPACES ]] && set -x
 
 cd || exit 1
@@ -90,16 +92,33 @@ fi
 ghbin() {
     local name=$1
     local nwo=$2
-    local ver=$3
-    local sum=$4
+    local tag=$3
+    local aarch64_sum=$4
+    local amd64_sum=$5
+    local ver=${6:-$tag}
+    local tar_args=$7
+
     local arch=$(uname -m)
-    [[ $arch = aarch64 ]] || sum=$5
+    local sum=$aarch64_sum
+    [[ $arch = aarch64 ]] || sum=$amd64_sum
 
-    local dir=$name-$ver-$arch-unknown-linux-gnu
-    local url=https://github.com/$nwo/releases/download/
+    [[ $arch = arm64 ]] && arch='arm64 x86_64'
 
-    curl -sL "$url/$ver/$dir.tar.gz" | tar -xz -C bin --strip-components=1 "$dir/$name"
-    [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] || rm -vf "bin/$name"
+    local url=https://github.com/$nwo/releases/download
+
+    for a in $arch
+    do
+        for libc in gnu musl
+        do
+            local tar_base=$name-$ver-$a-unknown-linux-$libc
+            if curl -sL "$url/$tag/$tar_base.tar.gz" |
+                tar -xz -C bin ${tar_args:---strip-components=1 "$tar_base/$name"} 2>/dev/null
+            then
+                [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] && return
+                rm -vf "bin/$name"
+            fi
+        done
+    done
 }
 
 case "$OSTYPE" in
