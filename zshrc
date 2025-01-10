@@ -4,6 +4,7 @@ if [[ -z $GHE_DEV && $HOSTNAME = *.github.net ]]
 then
     OLDLESS=$LESS
     source /etc/profile
+    PATH=~/bin:$PATH
     LESS=$OLDLESS
     unset OLDLESS
 fi
@@ -254,15 +255,17 @@ if [[ -n $ZSH_NAME ]]
 then
     [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.zsh
-    eval "$(~/bin/zoxide init zsh)"
 elif [ -n "$BASH_VERSION" ]
 then
     [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.bash
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
-    eval "$(~/bin/zoxide init bash)"
 fi
 
-alias cd=z
+if command -v zoxide > /dev/null
+then
+    eval "$(zoxide init "${SHELL##*/}")"
+    alias cd=z
+fi
 
 [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
 [[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
