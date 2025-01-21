@@ -34,6 +34,7 @@ alias vd='git diff | vim -R -'
 alias vp='vim -R -M -'
 alias nz="tr '\n' '\0'"
 alias zn="tr '\0' '\n'"
+alias urldecode="perl -MURI::Escape -ne 'print uri_unescape(\$_)'"
 alias versions="nz | xargs -0 sha1sum | sort"
 
 matches() {
