@@ -93,12 +93,6 @@ else
 fi
 export DELTA_PAGER=less
 
-# github.com goproxy https://github.com/github/goproxy/blob/main/doc/user.md#set-up
-export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
-export GONOSUMDB='github.com/github/*'
-export GONOPROXY=
-export GOPRIVATE=
-
 function agent() {
     if [[ -n $1 ]]
     then
