@@ -265,7 +265,10 @@ fi
 if command -v zoxide > /dev/null
 then
     eval "$(zoxide init "${SHELL##*/}")"
-    alias cd=z
+
+    function cd {
+        z "$@" || builtin cd "$@"
+    }
 fi
 
 [[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
