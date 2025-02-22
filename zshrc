@@ -103,7 +103,8 @@ then
     export LSOPT="$LSOPT --color"
 fi
 alias l="ls -CF $LSOPT"
-alias ll="ls -la $LSOPT"
+alias la="ls -la $LSOPT"
+alias ll="ls -l $LSOPT"
 alias lo="ls -sh1 $LSOPT"
 
 if [[ -n $ZSH_NAME ]]
