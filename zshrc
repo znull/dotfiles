@@ -56,6 +56,8 @@ case "$OSTYPE" in
         alias pbcopy='xclip -sel clip'
         alias psl='ps -e f -o pid,stat,time,%cpu,wchan=WCHAN________________,command'
         alias open=xdg-open
+        alias sys=systemctl
+        alias syu='systemctl --user'
         ;;
 esac
 
