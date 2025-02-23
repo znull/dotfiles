@@ -48,6 +48,7 @@ case "$OSTYPE" in
         export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
         alias pidof='killall -d'
         alias locate=mdfind
+        alias pt='pstree -g3'
         alias vi=vim
         alias ldd='otool -L'
         ;;
