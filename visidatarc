@@ -1,0 +1,70 @@
+# avail: 0123456789 hjkl BEGVX ctrl+ABFHIJMNOQUW g+cfgnoprw gz+bcefgmnqrwz z+befgmnqw
+# good: gg gzz
+
+def rebind(key, func):
+    TableSheet.unbindkey(key)
+    TableSheet.bindkey(key, func)
+
+# hjkl
+rebind('d', 'go-left')      # replaces qwerty h
+TableSheet.bindkey('h', 'go-down')      # replaces qwerty j
+rebind('t', 'go-up')        # replaces qwerty k
+rebind('n', 'go-right')     # replaces qwerty l
+
+rebind('e', 'delete-row')   # replaces d
+rebind('i', 'edit-cell')    # replaces e
+#TableSheet.bindkey(_, 'addcol-incr')    # TBD: Do I need addcol-incr, really?
+TableSheet.bindkey('Ctrl+W', 'stoggle-row')   # replaces t
+TableSheet.bindkey('l', 'search-next')  # replaces n
+
+# HJKL
+TableSheet.bindkey('Shift+D', 'slide-left')    # replaces qwerty H
+rebind('Shift+H', 'slide-down')    # replaces qwerty J
+rebind('Shift+T', 'slide-up')      # replaces qwerty K
+rebind('Shift+N', 'slide-right')   # replaces qwerty L
+
+TableSheet.bindkey('Shift+E', 'cmdlog-sheet')  # replaces D
+TableSheet.bindkey('Shift+X', 'transpose')     # replaces T
+rebind('Shift+L', 'searchr-next')  # replaces N
+
+# gh/gj/gk/gl: move all the way in direction
+rebind('gd', 'go-leftmost')      # replaces qwerty gh
+TableSheet.bindkey('gh', 'go-bottom')        # replaces qwerty gj
+#TableSheet.bindkey('gt', 'go-top')           # would replace qwerty gk, but is stoggle-rows
+TableSheet.bindkey('gn', 'go-rightmost')     # replaces qwerty gl
+
+rebind('ge', 'delete-selected')  # replaces gd
+#TableSheet.bindkey(_, 'setcol-input')        # replaced by delete-selected
+TableSheet.bindkey('gw', 'stoggle-rows')     # consistent with other t->w remaps
+
+TableSheet.bindkey('0', 'go-leftmost')       # vim
+TableSheet.bindkey('Shift+G', 'go-bottom')   # vim
+TableSheet.bindkey('gg', 'go-top')           # vim
+
+# gzh/gzj/gzk/gzl
+rebind('gzd', 'scroll-cells-leftmost')   # replaces qwerty gzh
+rebind('gzh', 'scroll-cells-bottom')     # replaces qwerty gzj
+rebind('gzt', 'scroll-cells-top')        # replaces qwerty gzk
+TableSheet.bindkey('gzn', 'scroll-cells-rightmost')  # replaces qwerty gzl
+
+TableSheet.bindkey('gze', 'delete-cells')   # replaces gzd
+TableSheet.bindkey('gzw', 'stoggle-after')  # replaces gzt
+
+# zShift+HJKL
+TableSheet.bindkey('zShift+D', 'slide-left-n')
+rebind('zShift+H', 'slide-down-n')
+TableSheet.bindkey('zShift+T', 'slide-up-n')
+TableSheet.bindkey('zShift+N', 'slide-right-n')
+
+TableSheet.bindkey('zShift+E', 'cmdlog-sheet-only') # replaces zShift+D
+
+# zh/zj/zk/zl
+rebind('zd', 'scroll-cells-left')
+rebind('zh', 'scroll-cells-down')
+rebind('zt', 'scroll-cells-up')
+TableSheet.bindkey('zn', 'scroll-cells-right')
+
+TableSheet.bindkey('ze', 'delete-cell')     # replaces zd
+TableSheet.bindkey('zw', 'stoggle-before')  # replaces zt
+
+# vim: ft=python sw=4

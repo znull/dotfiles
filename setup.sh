@@ -163,6 +163,7 @@ ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
 ln -rnsv .dotfiles/vimrc .config/nvim/init.vim
 ln -rnsv .dotfiles/vim .local/share/nvim/site
+ln -rnsv .dotfiles/visidatarc .visidatarc
 ln -rnsv .dotfiles/xar bin
 ln -rnsv .dotfiles/zlogin .zlogin
 ln -rnsv .dotfiles/zprofile .bash_profile
