@@ -38,8 +38,6 @@ rebind('ge', 'delete-selected')  # replaces gd
 TableSheet.bindkey('gw', 'stoggle-rows')     # consistent with other t->w remaps
 
 TableSheet.bindkey('0', 'go-leftmost')       # vim
-TableSheet.bindkey('Shift+G', 'go-bottom')   # vim
-TableSheet.bindkey('gg', 'go-top')           # vim
 
 # gzh/gzj/gzk/gzl
 rebind('gzd', 'scroll-cells-leftmost')   # replaces qwerty gzh
