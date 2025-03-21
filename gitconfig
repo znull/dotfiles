@@ -46,6 +46,9 @@
     interactive = auto
     status = auto
 
+[commit]
+    verbose = true
+
 [core]
     pager = delta
 
