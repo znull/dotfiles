@@ -266,6 +266,10 @@ then
     source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
 fi
 
+[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+[[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
+[[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
+
 if command -v zoxide > /dev/null
 then
     eval "$(zoxide init "${SHELL##*/}")"
@@ -274,10 +278,6 @@ then
         z "$@" || builtin cd "$@"
     }
 fi
-
-[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
-[[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
-[[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
 
 [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null && eval "$(rbenv init -)"
 
