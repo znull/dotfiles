@@ -102,6 +102,8 @@ ounmap Q
 
 nmap <C-P> :FZF<cr>
 nmap <Leader>m :FZFMru<cr>
+nmap <C-]> <Plug>(fzf_tags)
+noreabbrev <expr> ts getcmdtype() == ":" && getcmdline() == 'ts' ? 'FZFTselect' : 'ts'
 
 if has("nvim")
     nmap <Leader>ev :e $HOME/.config/nvim/init.vim<CR>
