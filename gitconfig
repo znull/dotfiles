@@ -40,11 +40,17 @@
     pr = !gh pr list --state all --search 
     base = merge-base @ origin/HEAD
 
+[branch]
+    sort = -committerdate
+
 [color]
     branch = auto
     diff = auto
     interactive = auto
     status = auto
+
+[column]
+    ui = auto
 
 [commit]
     verbose = true
@@ -67,12 +73,17 @@
     renamelimit = 30000
     srcPrefix =
     dstPrefix =
+    colorMoved = plain
+    colorMovedWS = allow-indentation-change
+#   mnemonicPrefix = true
 
 [difftool "diffmerge"]
     cmd = diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
 
 [fetch]
     prune = true
+#   pruneTags = true
+#   all = true
 
 [filter "lfs"]
     process = git-lfs filter-process
@@ -82,6 +93,12 @@
 
 [github]
     user = znull
+
+[grep]
+    patternType = perl
+
+[help]
+    autocorrect = prompt
 
 [init]
     defaultBranch = main
@@ -96,7 +113,7 @@
     decorate = true
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
     renamelimit = 30000
 
 [mergetool "diffmerge"]
@@ -112,9 +129,18 @@
 
 [rebase]
     autosquash = true
+    autoStash = true
+    updateRefs = true
+
+[rerere]
+    enabled = true
+    autoupdate = true
 
 [showbranch]
     default = --color=auto
+
+[tag]
+    sort = version:refname
 
 [user]
     name = Jason Lunz
