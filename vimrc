@@ -146,13 +146,13 @@ nmap <leader>cc <leader>c_
 vmap <leader>c <Plug>OSCYankVisual
 
 function! Dvorak ()
-    noremap d h
+    noremap d <left>
     noremap co do
     noremap cp dp
-    noremap n l
-    noremap t gk
+    noremap n <right>
+    noremap t g<up>
     ounmap t
-    noremap h gj
+    noremap h g<down>
     noremap e d
     noremap l n
     map <C-w>t <C-w>k
