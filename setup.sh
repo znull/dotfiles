@@ -20,7 +20,7 @@ then
 fi
 
 install -d -m 0700 .tmp .ssh/sockets
-install -d -m 0755 bin .config/{env.d,git,profile.d,rc.d} {.config,.local/share}/nvim
+install -d -m 0755 bin .config/{env.d,git,nvim,profile.d,rc.d}
 touch .config/env.d/local .config/profile.d/local .config/rc.d/local
 export PATH=~/bin:$PATH
 
@@ -162,7 +162,6 @@ ln -rnsv .dotfiles/pythonrc .pythonrc
 ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
 ln -rnsv .dotfiles/vimrc .config/nvim/init.vim
-ln -rnsv .dotfiles/vim .local/share/nvim/site
 ln -rnsv .dotfiles/visidatarc .visidatarc
 ln -rnsv .dotfiles/xar bin
 ln -rnsv .dotfiles/zlogin .zlogin

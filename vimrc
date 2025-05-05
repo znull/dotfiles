@@ -1,7 +1,5 @@
-if !has("nvim")
-    set runtimepath^=~/.local/share/nvim/site runtimepath+=~/.local/share/nvim/site/after
-    let &packpath = &runtimepath
-endif
+set runtimepath^=~/.dotfiles/vim runtimepath+=~/.dotfiles/vim/after
+let &packpath = &runtimepath
 
 set encoding=utf-8
 scriptencoding utf-8
