@@ -113,7 +113,7 @@
     decorate = true
 
 [merge]
-    conflictstyle = zdiff3
+    conflictstyle = diff3
     renamelimit = 30000
 
 [mergetool "diffmerge"]
