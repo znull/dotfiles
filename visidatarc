@@ -1,9 +1,9 @@
-# avail: 0123456789 hjkl BEGVX ctrl+ABFHIJMNOQUW g+cfgnoprw gz+bcefgmnqrwz z+befgmnqw
-# good: gg gzz
-
 def rebind(key, func):
     TableSheet.unbindkey(key)
     TableSheet.bindkey(key, func)
+
+# avail: 0123456789 hjkl BEGVX ctrl+ABFHIJMNOQUW g+cfgnoprw gz+bcefgmnqrwz z+befgmnqw
+# good: gg gzz
 
 # hjkl
 rebind('d', 'go-left')      # replaces qwerty h
