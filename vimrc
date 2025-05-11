@@ -77,7 +77,9 @@ let g:go_version_warning = 0
 
 set background=dark
 set confirm
-set pastetoggle=<F8>
+if !has("nvim")
+    set pastetoggle=<F8>
+endif
 
 colorscheme jellybeans
 
