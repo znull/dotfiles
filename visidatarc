@@ -1,3 +1,6 @@
+options.quitguard=True
+TableSheet.bindkey('zShift+G', 'guard-sheet')
+
 def rebind(key, func):
     TableSheet.unbindkey(key)
     TableSheet.bindkey(key, func)
