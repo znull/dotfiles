@@ -39,17 +39,14 @@ chsh_zsh() {
 }
 
 configure_git() {
-    local git_version=$(git --version)
-    git_version=${git_version##* }
-    IFS=. read -r major minor _ <<<"$git_version"
-    if [[ $major -lt 2 || $major -eq 2 && $minor -lt 35 ]]
+    if git help merge | grep -q zdiff3
     then
+        git config -f .config/git/overrides merge.conflictstyle zdiff3
+        git config -f .config/git/overrides --unset core.pager
+    else
         # zdiff3 not yet supported
         git config -f .config/git/overrides --unset merge.conflictstyle
         git config -f .config/git/overrides core.pager bat
-    else
-        git config -f .config/git/overrides merge.conflictstyle zdiff3
-        git config -f .config/git/overrides --unset core.pager
     fi
 }
 configure_git
