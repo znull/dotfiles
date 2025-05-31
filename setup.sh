@@ -51,10 +51,10 @@ configure_git() {
 
     if [[ -S .ssh/sockets/agent-1pass ]]
     then
-        local signing_key=$(SSH_AUTH_SOCK=.ssh/sockets/agent-1pass ssh-add -L | grep -m1 -E '(EZhBcDHKNlFKnofy|nzvlYnejEH8DxF8M) 1pass')
+        local signing_key=$(SSH_AUTH_SOCK=.ssh/sockets/agent-1pass ssh-add -L | grep -m1 -E '(EZhBcDHKNlFKnofy|nzvlYnejEH8DxF8M)')
         if [[ -n "$signing_key" ]]
         then
-            perl -pe "s/__1PASS_KEY__/$signing_key/" < .dotfiles/git-gpg > .config/git/gpg.$$
+            perl -pe "s|__1PASS_KEY__|$signing_key|" < .dotfiles/git-gpg > .config/git/gpg.$$
             mv -v .config/git/gpg.$$ .config/git/gpg
         fi
     fi
