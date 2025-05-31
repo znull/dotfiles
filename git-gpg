@@ -3,7 +3,7 @@
 
 [user]
     # 1pass
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINWcHapCM+Hi6Cntg3q/KbiJw9KfEZhBcDHKNlFKnofy
+    signingkey = __1PASS_KEY__
     # yubikey gpg
     #signingKey = DA13559551B728FB14071287C908EDAD787B0A99
 

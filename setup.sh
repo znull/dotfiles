@@ -51,9 +51,16 @@ configure_git() {
 
     if [[ -S .ssh/sockets/agent-1pass ]]
     then
-        echo 'znull@github.com,jason.lunz@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINWcHapCM+Hi6Cntg3q/KbiJw9KfEZhBcDHKNlFKnofy 1pass' > .config/git/allowed_signers
-        ln -rnsv .dotfiles/git-gpg .config/git/gpg
+        local signing_key=$(SSH_AUTH_SOCK=.ssh/sockets/agent-1pass ssh-add -L | grep -m1 -E '(EZhBcDHKNlFKnofy|nzvlYnejEH8DxF8M) 1pass')
+        if [[ -n "$signing_key" ]]
+        then
+            perl -pe "s/__1PASS_KEY__/$signing_key/" < .dotfiles/git-gpg > .config/git/gpg.$$
+            mv -v .config/git/gpg.$$ .config/git/gpg
+        fi
     fi
+
+    echo 'znull@github.com,jason.lunz@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINWcHapCM+Hi6Cntg3q/KbiJw9KfEZhBcDHKNlFKnofy 1pass' > .config/git/allowed_signers
+    echo 'znull@github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO5gq4xUQ10vT+z2ik0Qe0OIcWMynzvlYnejEH8DxF8M 1pass work' >> .config/git/allowed_signers
 }
 configure_git
 
