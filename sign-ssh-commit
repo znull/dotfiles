@@ -1,0 +1,2 @@
+#!/bin/bash
+SSH_AUTH_SOCK=~/.ssh/sockets/agent-1pass exec ssh-keygen "$@"

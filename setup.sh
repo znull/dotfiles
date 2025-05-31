@@ -48,6 +48,12 @@ configure_git() {
         git config -f .config/git/overrides --unset merge.conflictstyle
         git config -f .config/git/overrides core.pager bat
     fi
+
+    if [[ -S .ssh/sockets/agent-1pass ]]
+    then
+        echo 'znull@github.com,jason.lunz@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINWcHapCM+Hi6Cntg3q/KbiJw9KfEZhBcDHKNlFKnofy 1pass' > .config/git/allowed_signers
+        ln -rnsv .dotfiles/git-gpg .config/git/gpg
+    fi
 }
 configure_git
 
@@ -65,25 +71,6 @@ then
         time ~/.dotfiles/ghtags
         time git status
     ) &> /workspaces/.codespaces/.persistedshare/warmup.log &
-fi
-
-# GHES
-if [[ $USER = build && $HOME = /workspace ]]
-then
-    chsh_zsh
-    apt_install
-
-    gpg --import .dotfiles/5D27B87E.gpg
-
-    rm -f ~/.gitconfig
-
-    ln -rnsv .dotfiles/git-gpg .config/git/gpg
-
-    sudo -n dpkg-divert --rename /bin/gpg-agent
-    sudo -n dpkg-divert --rename /usr/bin/gpg-agent
-    ln -nsf /bin/true /usr/bin/gpg-agent
-
-    ( cd ~/enterprise2 && git config receive.denyCurrentBranch updateInstead )
 fi
 
 ghbin() {
@@ -156,6 +143,7 @@ ln -rnsv .dotfiles/inputrc .inputrc
 ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
 ln -rnsv .dotfiles/pythonrc .pythonrc
+ln -rnsv .dotfiles/sign-ssh-commit bin
 ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
 ln -rnsv .dotfiles/vimrc .config/nvim/init.vim
