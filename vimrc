@@ -17,6 +17,12 @@ abbr yoru your
 
 filetype indent plugin on
 
+" override vim-sleuth when it defaults to 8
+augroup ShellIndentEnforce
+  autocmd!
+  autocmd FileType sh,bash,zsh autocmd BufEnter <buffer> if &shiftwidth == 8 | setlocal shiftwidth=4 softtabstop=4 | endif
+augroup END
+
 if has("syntax")
     syntax on
 endif
