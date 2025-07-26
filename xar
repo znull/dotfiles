@@ -47,7 +47,7 @@ do
         *.flac)
             flac -d "$archive" -o "$(basename $archive).wav"
         ;;
-        *.[jw]ar|*.exe|*.zip|*.xpi|*.xgt|*.egg|*.xlsx|*.docx|*.apk|*.ez|*.srcjar|*.sh)
+        *.[jw]ar|*.exe|*.zip|*.xpi|*.xgt|*.egg|*.xlsx|*.docx|*.apk|*.ez|*.srcjar|*.sh|*.whl)
             unzip "$archive"
         ;;
         *.mp3)
