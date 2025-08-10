@@ -1,3 +1,4 @@
 .*.sw?
 tags
 vim/.netrwhist
+.DS_Store
