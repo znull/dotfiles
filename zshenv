@@ -47,7 +47,6 @@ then
         then
             timeout 2m tail -f /workspaces/.codespaces/.persistedshare/creation.log | sed '/Finished configuring codespace/ q'
         fi
-        [[ -z $LANG ]] && export LANG=C.utf-8
         export BROWSER=browser
         if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]
         then
@@ -84,6 +83,24 @@ export MANROFFOPT=-c
 export PYTHONSTARTUP=~/.pythonrc
 export TZ_LIST='America/Los_Angeles;America/Denver;America/Chicago;America/New_York;UTC;Europe/London' #;Europe/Berlin
 export UNAME=$(uname)
+
+set_lang() {
+    [[ -n $LANG ]] && return
+
+    local lang cs
+    for lang in en_US C
+    do
+        for cs in utf-8 UTF-8 utf8 UTF8
+        do
+            if locale -a | grep -q "$lang.$cs"
+            then
+                export LANG="$lang.$cs"
+                break
+            fi
+        done
+    done
+}
+set_lang
 
 if command -v bat > /dev/null
 then
