@@ -95,20 +95,30 @@ ghbin() {
 
     [[ $arch = arm64 ]] && arch='arm64 x86_64'
 
-    local url=https://github.com/$nwo/releases/download
-
-    for a in $arch
-    do
-        for libc in gnu musl
+    local names
+    if [[ -n $tar_base ]]
+    then
+        names=($tar_base)
+    else
+        names=()
+        for a in $arch
         do
-            local tar_base=$name-$ver-$a-unknown-linux-$libc
-            if curl -sL "$url/$tag/$tar_base.tar.gz" |
-                tar -xz -C bin ${tar_args:---strip-components=1 "$tar_base/$name"} 2>/dev/null
-            then
-                [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] && return
-                rm -vf "bin/$name"
-            fi
+            for libc in gnu musl
+            do
+                names+=($name-$ver-$a-unknown-linux-$libc)
+            done
         done
+    fi
+
+    local url=https://github.com/$nwo/releases/download
+    for n in "${names[@]}"
+    do
+        if curl -sL "$url/$tag/$n.tar.gz" |
+            tar -xz -C bin ${tar_args:---strip-components=1 "$n/$name"} 2>/dev/null
+        then
+            [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] && return
+            rm -vf "bin/$name"
+        fi
     done
 }
 
@@ -119,6 +129,7 @@ case "$OSTYPE" in
     linux*)
         ghbin fd sharkdp/fd v10.2.0 f03160ccf718e4aa9f1ed85755fa349670a4bebe483bde7dd3ee675ac42decbf eea818be74986760a1436c72135041c6ac3d709eea268554a11356e71f066a8e
         ghbin delta dandavison/delta 0.18.2 7833733f45a128e96757254066b84f6baf553860a656bda4075c32fd735102a0 fad23fba816fec22fc808717a2b4e149d2651e76491f8dd020b4b82d7829a9da
+        tar_base=gitwho_v1.2_linux_arm64 ghbin git-who sinclairtarget/git-who v1.2 a35e6ec05453f94af47af1701ac00301a9c1d4132f23fa5da26e9ed491cc1a25 _ _ '--strip-components=1 linux_arm64/git-who'
         ghbin zoxide ajeetdsouza/zoxide v0.9.6 2d793ae36470950e28a1e218767e9534f000127be9c9aab6da62401e1657c854 b652df2979a260f1d8abfd0d956ed0a4c7f67827c9ddc07415e862afba0c71b4 0.9.6 zoxide
 
         (
