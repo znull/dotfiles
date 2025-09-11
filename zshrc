@@ -452,7 +452,7 @@ function wanip() {
     #echo -n 'AAAA: '; dig +short myip.opendns.com aaaa @resolver1.opendns.com || echo
     #echo -n 'AAAA: '; dig -6 +short myip.opendns.com aaaa @resolver1.opendns.com || echo
     curl -s https://ipinfo.io/json | jq
-    curl -s https://v6.ipinfo.io/json | jq
+    curl -6s https://v6.ipinfo.io/json | jq
 }
 
 if command -v color > /dev/null
