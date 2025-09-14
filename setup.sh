@@ -114,7 +114,7 @@ ghbin() {
     for n in "${names[@]}"
     do
         if curl -sL "$url/$tag/$n.tar.gz" |
-            tar -xz -C bin ${tar_args:---strip-components=1 "$n/$name"} 2>/dev/null
+            tar -xz --no-same-owner --no-same-permissions -C bin ${tar_args:---strip-components=1 "$n/$name"} 2>/dev/null
         then
             [[ $(shasum -a 256 "bin/$name" | tee /dev/stderr) = "$sum  bin/$name" ]] && return
             rm -vf "bin/$name"
