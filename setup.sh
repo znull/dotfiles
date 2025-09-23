@@ -55,7 +55,7 @@ configure_git() {
         if [[ -n "$signing_key" ]]
         then
             perl -pe "s|__1PASS_KEY__|$signing_key|" < .dotfiles/git-gpg > .config/git/gpg.$$
-            mv -v .config/git/gpg.$$ .config/git/gpg
+            mv .config/git/gpg.$$ .config/git/gpg
         fi
     fi
 
