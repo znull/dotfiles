@@ -161,6 +161,7 @@ ln -rnsv .dotfiles/inputrc .inputrc
 ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
 ln -rnsv .dotfiles/pythonrc .pythonrc
+ln -rnsv .dotfiles/rgignore .rgignore
 ln -rnsv .dotfiles/sign-ssh-commit bin
 ln -rnsv .dotfiles/tmux.conf .tmux.conf
 ln -rnsv .dotfiles/vimrc .vimrc
