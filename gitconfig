@@ -27,8 +27,12 @@
         owner=${rem%/*}; \
         owner=${owner##*/}; \
         owner=${owner##*:}; \
-        git remote set-url origin https://github.com/\"$owner\"/\"$name\"; \
         git remote set-url --push origin git@github.com:\"$owner\"/\"$name\".git; \
+        git remote -v; \
+    }; f"
+    unsplit-remote = "!f() { \
+        url=$(git config remote.origin.url); \
+        git remote set-url --push origin \"$url\"; \
         git remote -v; \
     }; f"
 
