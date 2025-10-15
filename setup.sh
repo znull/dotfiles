@@ -69,7 +69,6 @@ then
     ln -nsfv /workspaces/.codespaces/.persistedshare/dotfiles .dotfiles
     [[ -f .gitconfig ]] && mv -v .gitconfig .config/git/local
     chsh_zsh
-    apt_install
     ln -rnsv .dotfiles/browser bin
     [[ -d /workspaces/github ]] && (
         cd /workspaces/github
@@ -181,6 +180,8 @@ tic -xe alacritty,alacritty-direct .dotfiles/terminfo/alacritty
 tic -x .dotfiles/terminfo/ghostty
 
 git -C .dotfiles submodule update --init --recursive
+
+[[ -n $CODESPACES ]] && apt_install
 
 (
     fzf_dir=.dotfiles/vim/pack/plugin/start/fzf
