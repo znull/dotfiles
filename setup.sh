@@ -131,11 +131,6 @@ case "$OSTYPE" in
         tar_base=gitwho_v1.2_linux_arm64 ghbin git-who sinclairtarget/git-who v1.2 a35e6ec05453f94af47af1701ac00301a9c1d4132f23fa5da26e9ed491cc1a25 _ _ '--strip-components=1 linux_arm64/git-who'
         ghbin zoxide ajeetdsouza/zoxide v0.9.6 2d793ae36470950e28a1e218767e9534f000127be9c9aab6da62401e1657c854 b652df2979a260f1d8abfd0d956ed0a4c7f67827c9ddc07415e862afba0c71b4 0.9.6 zoxide
 
-        (
-            batcat=$(command -v batcat)
-            [[ -n $batcat ]] && ln -nsv $batcat bin/bat
-        )
-
         if [[ $UID = 0 && -f /etc/debian_version ]]
         then
             install -d -m 0755 ~/.aptitude
@@ -184,6 +179,9 @@ git -C .dotfiles submodule update --init --recursive
 [[ -n $CODESPACES ]] && apt_install
 
 (
+    batcat=$(command -v batcat)
+    [[ -n $batcat ]] && ln -nsv $batcat bin/bat
+
     fzf_dir=.dotfiles/vim/pack/plugin/start/fzf
     mkdir -p $fzf_dir/tmp
     mv $fzf_dir/bin/fzf $fzf_dir/tmp
