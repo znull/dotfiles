@@ -1,5 +1,13 @@
 #! /bin/zsh
 
+function no_xtrace() {
+    { [[ $(set -o | grep -w xtrace) = xtrace*on ]] && local xtrace_was_on=1 ; set +x; } 2>/dev/null
+    "$@"
+    local rc=$?
+    (( xtrace_was_on )) && set -x
+    ( exit $rc ) 2>/dev/null
+}
+
 if [[ -z $GHE_DEV && $HOSTNAME = *.github.net ]]
 then
     OLDLESS=$LESS
@@ -96,12 +104,16 @@ then
     alias ssha="chroot-cluster-ssh.sh build-cluster-app"
 fi
 
-if command -v dircolors > /dev/null
-then
-    eval `dircolors`
-    export LS_COLORS="$LS_COLORS:ow=103;30;01"
-    export LSOPT="$LSOPT --color"
-fi
+function setup_dircolors() {
+    if command -v dircolors > /dev/null
+    then
+        eval `dircolors`
+        export LS_COLORS="$LS_COLORS:ow=103;30;01"
+        export LSOPT="$LSOPT --color"
+    fi
+}
+no_xtrace setup_dircolors
+
 alias l="ls -CF $LSOPT"
 alias la="ls -la $LSOPT"
 alias ll="ls -l $LSOPT"
@@ -110,7 +122,7 @@ alias lo="ls -sh1 $LSOPT"
 if [[ -n $ZSH_NAME ]]
 then
     autoload -U zfinit zmv
-    zfinit
+    no_xtrace zfinit
 
     # completion
     setopt nobadpattern correct dvorak listpacked
@@ -151,97 +163,100 @@ then
     zstyle :compinstall filename ~/.zshrc
 
     autoload -Uz compinit
-    compinit -i
+    no_xtrace compinit -i
     # End of lines added by compinstall
 
-    compdef mosh=ssh
-    compdef msh=ssh
-    compdef tsh=ssh
-    compdef sshfs=scp
+    no_xtrace compdef mosh=ssh
+    no_xtrace compdef msh=ssh
+    no_xtrace compdef tsh=ssh
+    no_xtrace compdef sshfs=scp
 
-    # use vi line editing
-    KEYTIMEOUT=20
-    bindkey -v
+    function setup_bindings() {
+        # use vi line editing
+        KEYTIMEOUT=20
+        bindkey -v
 
-    # create a zkbd compatible hash;
-    # to add other keys to this hash, see: man 5 terminfo
-    typeset -A key
+        # create a zkbd compatible hash;
+        # to add other keys to this hash, see: man 5 terminfo
+        typeset -A key
 
-    key[Home]=${terminfo[khome]}
+        key[Home]=${terminfo[khome]}
 
-    key[End]=${terminfo[kend]}
-    key[Insert]=${terminfo[kich1]}
-    key[Delete]=${terminfo[kdch1]}
-    key[Up]=${terminfo[kcuu1]}
-    key[Down]=${terminfo[kcud1]}
-    key[Left]=${terminfo[kcub1]}
-    key[Right]=${terminfo[kcuf1]}
-    key[PageUp]=${terminfo[kpp]}
-    key[PageDown]=${terminfo[knp]}
+        key[End]=${terminfo[kend]}
+        key[Insert]=${terminfo[kich1]}
+        key[Delete]=${terminfo[kdch1]}
+        key[Up]=${terminfo[kcuu1]}
+        key[Down]=${terminfo[kcud1]}
+        key[Left]=${terminfo[kcub1]}
+        key[Right]=${terminfo[kcuf1]}
+        key[PageUp]=${terminfo[kpp]}
+        key[PageDown]=${terminfo[knp]}
 
-    # setup key accordingly
-    [[ -n "${key[Home]}"     ]] && bindkey "${key[Home]}"     vi-beginning-of-line
-    [[ -n "${key[End]}"      ]] && bindkey "${key[End]}"      vi-end-of-line
-    [[ -n "${key[Insert]}"   ]] && bindkey "${key[Insert]}"   vi-overwrite-mode
-    [[ -n "${key[Delete]}"   ]] && bindkey "${key[Delete]}"   vi-delete-char
-    [[ -n "${key[Up]}"       ]] && bindkey "${key[Up]}"       up-line-or-history
-    [[ -n "${key[Down]}"     ]] && bindkey "${key[Down]}"     down-line-or-history
-    [[ -n "${key[Left]}"     ]] && bindkey "${key[Left]}"     vi-backward-char
-    [[ -n "${key[Right]}"    ]] && bindkey "${key[Right]}"    vi-forward-char
-    [[ -n "${key[PageUp]}"   ]] && bindkey "${key[PageUp]}"   beginning-of-buffer-or-history
-    [[ -n "${key[PageDown]}" ]] && bindkey "${key[PageDown]}" end-of-buffer-or-history
+        # setup key accordingly
+        [[ -n "${key[Home]}"     ]] && bindkey "${key[Home]}"     vi-beginning-of-line
+        [[ -n "${key[End]}"      ]] && bindkey "${key[End]}"      vi-end-of-line
+        [[ -n "${key[Insert]}"   ]] && bindkey "${key[Insert]}"   vi-overwrite-mode
+        [[ -n "${key[Delete]}"   ]] && bindkey "${key[Delete]}"   vi-delete-char
+        [[ -n "${key[Up]}"       ]] && bindkey "${key[Up]}"       up-line-or-history
+        [[ -n "${key[Down]}"     ]] && bindkey "${key[Down]}"     down-line-or-history
+        [[ -n "${key[Left]}"     ]] && bindkey "${key[Left]}"     vi-backward-char
+        [[ -n "${key[Right]}"    ]] && bindkey "${key[Right]}"    vi-forward-char
+        [[ -n "${key[PageUp]}"   ]] && bindkey "${key[PageUp]}"   beginning-of-buffer-or-history
+        [[ -n "${key[PageDown]}" ]] && bindkey "${key[PageDown]}" end-of-buffer-or-history
 
-    # command mode
-    bindkey -a '\e[2~' vi-insert
-    bindkey -a d vi-backward-char
-    bindkey -a n vi-forward-char
-    bindkey -a t up-line-or-history
-    bindkey -a h down-line-or-history
-    bindkey -a e vi-delete
-    bindkey -a l vi-repeat-search
-    bindkey -a q push-line-or-edit
-    [[ -n "${key[PageUp]}"   ]] && bindkey -a "${key[PageUp]}"   beginning-of-buffer-or-history
-    [[ -n "${key[PageDown]}" ]] && bindkey -a "${key[PageDown]}" end-of-buffer-or-history
+        # command mode
+        bindkey -a '\e[2~' vi-insert
+        bindkey -a d vi-backward-char
+        bindkey -a n vi-forward-char
+        bindkey -a t up-line-or-history
+        bindkey -a h down-line-or-history
+        bindkey -a e vi-delete
+        bindkey -a l vi-repeat-search
+        bindkey -a q push-line-or-edit
+        [[ -n "${key[PageUp]}"   ]] && bindkey -a "${key[PageUp]}"   beginning-of-buffer-or-history
+        [[ -n "${key[PageDown]}" ]] && bindkey -a "${key[PageDown]}" end-of-buffer-or-history
 
-    # insert mode
-    bindkey '^t' vi-indent
-    bindkey '\e[2~' vi-cmd-mode
-    #bindkey '\e[1~' vi-beginning-of-line
-    #bindkey '\eOH' vi-beginning-of-line
-    bindkey '^a' vi-beginning-of-line
-    #bindkey '\e[4~' vi-end-of-line
-    #bindkey '\eOF' vi-end-of-line
-    bindkey '^e' vi-end-of-line
-    #bindkey '\e[3~' vi-delete-char
-    #bindkey '\e[A' up-line-or-history
-    #bindkey '\e[B' down-line-or-history
-    #bindkey '\e[C' vi-forward-char
-    #bindkey '\e[D' vi-backward-char
-    #bindkey '\eOA' up-line-or-history
-    #bindkey '\eOB' down-line-or-history
-    #bindkey '\eOC' vi-forward-char
-    #bindkey '\eOD' vi-backward-char
+        # insert mode
+        bindkey '^t' vi-indent
+        bindkey '\e[2~' vi-cmd-mode
+        #bindkey '\e[1~' vi-beginning-of-line
+        #bindkey '\eOH' vi-beginning-of-line
+        bindkey '^a' vi-beginning-of-line
+        #bindkey '\e[4~' vi-end-of-line
+        #bindkey '\eOF' vi-end-of-line
+        bindkey '^e' vi-end-of-line
+        #bindkey '\e[3~' vi-delete-char
+        #bindkey '\e[A' up-line-or-history
+        #bindkey '\e[B' down-line-or-history
+        #bindkey '\e[C' vi-forward-char
+        #bindkey '\e[D' vi-backward-char
+        #bindkey '\eOA' up-line-or-history
+        #bindkey '\eOB' down-line-or-history
+        #bindkey '\eOC' vi-forward-char
+        #bindkey '\eOD' vi-backward-char
 
-    #bindkey -a '\e[5~' beginning-of-history
-    #bindkey -a '\e[6~' end-of-history
-    #bindkey '\e[5~' beginning-of-history
-    #bindkey '\e[6~' end-of-history
+        #bindkey -a '\e[5~' beginning-of-history
+        #bindkey -a '\e[6~' end-of-history
+        #bindkey '\e[5~' beginning-of-history
+        #bindkey '\e[6~' end-of-history
 
-    bindkey -a / history-incremental-search-backward
-    bindkey '^h' run-help
-    bindkey '^n' history-search-backward
-    bindkey '^p' history-beginning-search-backward
-    bindkey '^r' history-incremental-search-backward
-    bindkey '^\n' accept-and-infer-next-history
-    bindkey '^[^M' self-insert-unmeta
+        bindkey -a / history-incremental-search-backward
+        bindkey '^h' run-help
+        bindkey '^n' history-search-backward
+        bindkey '^p' history-beginning-search-backward
+        bindkey '^r' history-incremental-search-backward
+        bindkey '^\n' accept-and-infer-next-history
+        bindkey '^[^M' self-insert-unmeta
 
-    bindkey '^z' undo
-    bindkey -a u undo
-    bindkey -a '^r' redo
+        bindkey '^z' undo
+        bindkey -a u undo
+        bindkey -a '^r' redo
 
-    autoload -z edit-command-line
-    zle -N edit-command-line
-    bindkey -M vicmd v edit-command-line
+        autoload -z edit-command-line
+        zle -N edit-command-line
+        bindkey -M vicmd v edit-command-line
+    }
+    no_xtrace setup_bindings
 
     if [ -f "$HOME/.ssh/known_hosts" ]
     then
@@ -249,34 +264,42 @@ then
         zstyle ':completion:*:hosts' hosts $hosts
     fi
 
-    command -v kubectl > /dev/null && source <(kubectl completion zsh)
+    command -v kubectl > /dev/null && no_xtrace source <(set +x; kubectl completion zsh)
 fi
 
-# fzf completion
-if [[ -n $ZSH_NAME ]]
-then
-    [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
-    source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.zsh
-elif [ -n "$BASH_VERSION" ]
-then
-    [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.bash
-    source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
-fi
+function setup_fzf() {
+    if [[ -n $ZSH_NAME ]]
+    then
+        [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.zsh
+        source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.zsh
+    elif [ -n "$BASH_VERSION" ]
+    then
+        [[ $- == *i* ]] && source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/completion.bash
+        source ~/.dotfiles/vim/pack/plugin/start/fzf/shell/key-bindings.bash
+    fi
+}
+no_xtrace setup_fzf
 
-[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+[[ -s ~/.nvm/nvm.sh ]] && no_xtrace source ~/.nvm/nvm.sh
 [[ -n $PATH_ORIG && -n $NVM_BIN ]] && PATH_PRIO=$PATH_PRIO:$NVM_BIN
-[[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
+[[ -s $NVM_DIR/bash_completion ]] && no_xtrace source "$NVM_DIR/bash_completion"
 
+setup_zoxide() {
 if command -v zoxide > /dev/null
-then
-    eval "$(zoxide init "${SHELL##*/}")"
+    then
+        eval "$(zoxide init "${ZSH_NAME:-bash}")"
 
-    function cd {
-        z "$@" || builtin cd "$@"
-    }
-fi
+        function cd {
+            z "$@" || builtin cd "$@"
+        }
+    fi
+}
+no_xtrace setup_zoxide
 
-[[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null && eval "$(rbenv init -)"
+setup_rbenv() {
+    [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null && eval "$(set +x; rbenv init -)"
+}
+no_xtrace setup_rbenv
 
 function akfp() {
     local ak=${1:-~/.ssh/authorized_keys}
@@ -455,28 +478,31 @@ function wanip() {
     curl -6s https://v6.ipinfo.io/json | jq
 }
 
-if command -v color > /dev/null
-then
-    CNONE="$(color none)"
-    CPNONE="$(color -p none)"
+function setup_prompt() {
+    if command -v color > /dev/null
+    then
+        CNONE="$(color none)"
+        CPNONE="$(color -p none)"
 
-    if [[ -n $PROMPT_COLOR ]]
-    then
-        HCOLOR=$(color -p "$PROMPT_COLOR")
-        PCHCOLOR=$(color "$PROMPT_COLOR")
-    else
-        HCOLOR=$(color -p white)
-        PCHCOLOR=$(color white)
+        if [[ -n $PROMPT_COLOR ]]
+        then
+            HCOLOR=$(color -p "$PROMPT_COLOR")
+            PCHCOLOR=$(color "$PROMPT_COLOR")
+        else
+            HCOLOR=$(color -p white)
+            PCHCOLOR=$(color white)
+        fi
+        RCOLOR="$HCOLOR"
+        if [ "$LOGNAME" = root ]
+        then
+            PCHCOLOR=$(color lightgrey)
+            RCOLOR=$(color -p lightgrey)
+        else
+            unset HCOLOR
+        fi
     fi
-    RCOLOR="$HCOLOR"
-    if [ "$LOGNAME" = root ]
-    then
-        PCHCOLOR=$(color lightgrey)
-        RCOLOR=$(color -p lightgrey)
-    else
-        unset HCOLOR
-    fi
-fi
+}
+no_xtrace setup_prompt
 
 test -r /etc/debian_chroot && unset LS_COLORS
 
@@ -504,9 +530,10 @@ then
     zstyle ':vcs_info:*' actionformats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b|%a$RCOLOR]"
     zstyle ':vcs_info:*' formats "[%F{white}%s$RCOLOR:%F{white}%m%u%c%$RCOLOR:%F{white}%b$RCOLOR]"
     precmd() {
-        vcs_info
-        local host_label=${CODESPACE_NAME:-%m}${GH_SITE:+.$GH_SITE}
-        PROMPT="$RCOLOR"'['"${HCOLOR}${host_label}${RCOLOR}]${PROMPT_EXTRA}"'[%D{%f.%m}•%T]'"$PCHROOT${vcs_info_msg_0_}$VIRTUAL_ENV_PROMPT(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
+        {
+            vcs_info
+            PROMPT="$RCOLOR"'['"${HCOLOR}${CODESPACE_NAME:-%m}${GH_SITE:+.$GH_SITE}${RCOLOR}]${PROMPT_EXTRA}"'[%D{%f.%m}•%T]'"$PCHROOT${vcs_info_msg_0_}$VIRTUAL_ENV_PROMPT(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
+        } 2>/dev/null
     }
 
     dirhide() {
@@ -515,7 +542,7 @@ then
     dirshow() {
         RPROMPT=$RCOLOR%~$CPNONE
     }
-    dirshow
+    dirshow 2>/dev/null
 
 else
     export PS1="$RCOLOR"'['"$HCOLOR"'\h'"$RCOLOR]$PCHROOT"'($?)➤'"$CPNONE"' '
