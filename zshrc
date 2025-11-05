@@ -258,11 +258,11 @@ then
     }
     no_xtrace setup_bindings
 
-    if [ -f "$HOME/.ssh/known_hosts" ]
-    then
-        hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*})
-        zstyle ':completion:*:hosts' hosts $hosts
-    fi
+    #if [ -f "$HOME/.ssh/known_hosts" ]
+    #then
+        #hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*})
+        #zstyle ':completion:*:hosts' hosts $hosts
+    #fi
 
     command -v kubectl > /dev/null && no_xtrace source <(set +x; kubectl completion zsh)
 fi
