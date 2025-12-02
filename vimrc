@@ -121,6 +121,8 @@ nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
 nmap <Leader>h :nohlsearch<CR>
 nmap <Leader>p :let @" = expand("%")<cr>
 nmap <Leader>s :source $HOME/.vimrc<CR>
+nmap <Leader>cp :packadd copilot<CR>:Copilot enable<CR>:Copilot status<CR>
+nmap <Leader>co :Copilot disable<CR>
 
 nmap <C-q> @q
 imap <C-B> {<CR>}
