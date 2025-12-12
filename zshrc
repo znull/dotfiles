@@ -297,24 +297,27 @@ if command -v zoxide > /dev/null
 }
 no_xtrace setup_zoxide
 
-function zoxide_fzf() {
-    local orig_buffer=$LBUFFER
-    local current_word="${LBUFFER##* }"
-    local selection
+if [[ -n $ZSH_NAME ]]
+then
+    function zoxide_fzf() {
+        local orig_buffer=$LBUFFER
+        local current_word="${LBUFFER##* }"
+        local selection
 
-    selection=$(zoxide query --list | fzf --height 40% --reverse --border --query "$current_word") || {
-        LBUFFER=$orig_buffer
-        zle redisplay
-        return 0
+        selection=$(zoxide query --list | fzf --height 40% --reverse --border --query "$current_word") || {
+            LBUFFER=$orig_buffer
+            zle redisplay
+            return 0
+        }
+
+        if [[ -n "$selection" ]]; then
+            LBUFFER="${LBUFFER%$current_word}$selection"
+            zle redisplay
+        fi
     }
-
-    if [[ -n "$selection" ]]; then
-        LBUFFER="${LBUFFER%$current_word}$selection"
-        zle redisplay
-    fi
-}
-zle -N zoxide_fzf
-bindkey '^o' zoxide_fzf
+    zle -N zoxide_fzf
+    bindkey '^o' zoxide_fzf
+fi
 
 setup_rbenv() {
     [[ -n $ZSH_NAME ]] && command -v rbenv > /dev/null && eval "$(set +x; rbenv init -)"
