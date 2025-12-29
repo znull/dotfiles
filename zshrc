@@ -555,7 +555,7 @@ then
     precmd() {
         {
             vcs_info
-            PROMPT="$RCOLOR"'['"${HCOLOR}${CODESPACE_NAME:-%m}${GH_SITE:+.$GH_SITE}${RCOLOR}]${PROMPT_EXTRA}"'[%D{%f.%m}•%T]'"$PCHROOT${vcs_info_msg_0_}$VIRTUAL_ENV_PROMPT(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
+            PROMPT="$RCOLOR"'['"${HCOLOR}${CODESPACE_NAME:-%m}${GH_SITE:+.$GH_SITE}${RCOLOR}]${PROMPT_EXTRA}"'[%D{%f.%m}•%T]'"$PCHROOT${vcs_info_msg_0_}${VIRTUAL_ENV_PROMPT:+[}$VIRTUAL_ENV_PROMPT${VIRTUAL_ENV_PROMPT:+]}(%?)%(1j. |${jobtexts%% *}|.)%(!. #.❯)$CPNONE "      # ➤ • ❯
         } 2>/dev/null
     }
 
