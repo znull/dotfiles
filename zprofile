@@ -20,7 +20,7 @@ then
     case "$GH_ENV" in
         production)    export PROMPT_COLOR=yellow ;;
         staff-wus2-01) export PROMPT_COLOR=green  ;;
-        ?*)            export PROMPT_COLOR=black  ;;
+        ?*)            export PROMPT_COLOR=lightgrey ;;
         *)
             [[ -n $GHE_DEV ]] && export PROMPT_COLOR=purple
             [[ -n $CODESPACES ]] && export PROMPT_COLOR=cyan
