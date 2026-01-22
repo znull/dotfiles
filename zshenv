@@ -135,7 +135,6 @@ if [[ $USER = build && $HOME = /workspace ]]
 then
     export GHE_DEV=t
     export PATH=~/enterprise2:$PATH
-    agent gpg
 fi
 
 for rc in ~/.config/env.d/*
