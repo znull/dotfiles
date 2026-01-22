@@ -49,7 +49,7 @@ configure_git() {
         git config -f .config/git/overrides core.pager bat
     fi
 
-    if [[ -S .ssh/sockets/agent-1pass ]]
+    if [[ -S .ssh/sockets/agent-1pass ]] && git -c gpg.format=ssh -C .dotfiles show &> /dev/null
     then
         local signing_key=$(SSH_AUTH_SOCK=.ssh/sockets/agent-1pass ssh-add -L | grep -m1 -E '(EZhBcDHKNlFKnofy|nzvlYnejEH8DxF8M)')
         if [[ -n "$signing_key" ]]
