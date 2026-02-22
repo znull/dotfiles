@@ -1,0 +1,2 @@
+#!/bin/bash
+exec uvx --prerelease=allow --from azure-cli@latest az "$@"

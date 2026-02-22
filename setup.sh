@@ -146,6 +146,7 @@ then
 fi
 
 ln -rnsv .dotfiles/af bin
+ln -rnsv .dotfiles/az bin
 ln -rnsv .dotfiles/ctags .ctags
 ln -rnsv .dotfiles/ghtags bin
 ln -rnsv .dotfiles/gitconfig .gitconfig
