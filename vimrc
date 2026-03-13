@@ -119,7 +119,8 @@ endif
 nmap <Leader>f :set fileformat=unix<CR>
 nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
 nmap <Leader>h :nohlsearch<CR>
-nmap <Leader>p :let @" = expand("%")<cr>
+nnoremap <Leader>p :call OSCYank(expand('%'))<CR>
+nnoremap <Leader>P :call OSCYank(expand('%:p'))<CR>
 nmap <Leader>s :source $HOME/.vimrc<CR>
 nmap <Leader>cp :packadd copilot<CR>:Copilot enable<CR>:Copilot status<CR>
 nmap <Leader>co :Copilot disable<CR>
