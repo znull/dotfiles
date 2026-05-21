@@ -116,6 +116,7 @@ if has("nvim")
 else
     nmap <Leader>ev :e $HOME/.vimrc<CR>
 endif
+nmap <Leader>ut :! ctags -R<CR>
 nmap <Leader>f :set fileformat=unix<CR>
 nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
 nmap <Leader>h :nohlsearch<CR>
