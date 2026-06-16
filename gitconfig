@@ -124,6 +124,7 @@
 [merge]
     conflictstyle = diff3
     renamelimit = 30000
+    tool = vimdiff
 
 [mergetool "diffmerge"]
     cmd = diffmerge --nosplash --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
