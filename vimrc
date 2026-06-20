@@ -77,8 +77,17 @@ let mapleader = ','
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
-let g:go_fmt_command = 'gofmt'
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_options = {
+      \ 'goimports': '-local github.com/github/gitrpcd',
+      \ }
+
 let g:go_metalinter_command = 'golangci-lint'
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = []
+let g:go_metalinter_enabled = []
+let g:go_metalinter_deadline = '30s'
+
 let g:go_version_warning = 0
 
 set background=dark
@@ -120,6 +129,19 @@ nmap <Leader>ut :! ctags -R<CR>
 nmap <Leader>f :set fileformat=unix<CR>
 nmap <Leader>g mZ:grep -w '<cword>'<CR><CR><CR>:copen<CR><CR>'Zz.
 nmap <Leader>h :nohlsearch<CR>
+function! GolangCILintFmtCurrentBuffer() abort
+    write
+    let l:output = systemlist('golangci-lint fmt ' . shellescape(expand('%:p')))
+    if v:shell_error
+        echohl ErrorMsg
+        echom join(l:output, "\n")
+        echohl None
+        return
+    endif
+    edit
+    redraw!
+endfunction
+nnoremap <Leader>i :call GolangCILintFmtCurrentBuffer()<CR>
 nnoremap <Leader>p :call OSCYank(expand('%'))<CR>
 nnoremap <Leader>P :call OSCYank(expand('%:p'))<CR>
 nmap <Leader>s :source $HOME/.vimrc<CR>
