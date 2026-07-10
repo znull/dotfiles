@@ -12,11 +12,13 @@
     du = diff @{u}...HEAD
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     lo = log --oneline
+    lp = log -p
     ls = log --oneline --stat
     ss = show --stat
     morge = merge
     po = push origin HEAD
     rbtests = "!( git diff --stat=999 origin/HEAD...; git diff --stat=999 ) | awk '/test.rb/ { print $1 }' | sort -u"
+    rc = rebase --continue
     recent = for-each-ref --sort=-committerdate --format='%(committerdate:short): %(refname:short)' refs/heads/
     sl = stash list
     st = "!f() { if [ \"$(git rev-parse --is-bare-repository)\" = true ]; then git worktree list; else git status -sb \"$@\"; fi; }; f"
@@ -67,7 +69,7 @@
 
 [core]
     excludesfile = ~/.config/git/ignore
-    pager = delta
+    pager = delta --diff-so-fancy
 
 [delta]
     navigate = true    # use n and N to move between diff sections
