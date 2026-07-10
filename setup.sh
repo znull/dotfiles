@@ -155,6 +155,7 @@ ln -rnsv .dotfiles/git-ls-unreachable bin
 ln -rnsv .dotfiles/inputrc .inputrc
 ln -rnsv .dotfiles/lar bin
 ln -rnsv .dotfiles/manpager bin
+ln -rnsv .dotfiles/pl bin
 ln -rnsv .dotfiles/pythonrc .pythonrc
 ln -rnsv .dotfiles/rgignore .rgignore
 ln -rnsv .dotfiles/sign-ssh-commit bin
