@@ -28,7 +28,11 @@
     up = "!git fetch; upstream=${1:-origin}; set --; git pull $upstream @"
     wa = worktree add
     wl = worktree list
-    wr = worktree remove
+    wr = "!f() { \
+        cd \"${GIT_PREFIX:-.}\" && for wt; do :; done; \
+        [ -e \"$wt/.tmp\" -o -e \"$wt/.worktree\" ] && { echo \"wr: $wt has .tmp or .worktree\" >&2; return 1; }; \
+        git worktree remove \"$@\"; \
+    }; f"
     split-remote = "!f() { \
         rem=$(git config remote.origin.url); \
         name=${rem##*/}; \
