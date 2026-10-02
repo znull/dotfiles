@@ -19,12 +19,13 @@
     po = push origin HEAD
     rbtests = "!( git diff --stat=999 origin/HEAD...; git diff --stat=999 ) | awk '/test.rb/ { print $1 }' | sort -u"
     rc = rebase --continue
+    rih = rebase -i origin/HEAD
     recent = for-each-ref --sort=-committerdate --format='%(committerdate:short): %(refname:short)' refs/heads/
     sl = stash list
     st = "!f() { if [ \"$(git rev-parse --is-bare-repository)\" = true ]; then git worktree list; else git status -sb \"$@\"; fi; }; f"
     sw = !sh -c ":; { git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | grep -v \"^$(git branch --show-current)\\$\"; git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/origin/ ; } | fzf --preview 'git log --color=always {}' | perl -pe \"s@^origin/@@\" | xargs --no-run-if-empty git switch"
     this = rev-parse --abbrev-ref @
-    up = "!db=$(git symbolic-ref refs/remotes/origin/HEAD) ; db=\"${db##*/}\"; set -x; git pull origin \"$db\""
+    up = "!git fetch; upstream=${1:-origin}; set --; git pull $upstream @"
     wa = worktree add
     wl = worktree list
     wr = worktree remove
