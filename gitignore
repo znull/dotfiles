@@ -3,3 +3,5 @@ tags
 vim/.netrwhist
 .DS_Store
 .worktree
+.tmp
+__pycache__
