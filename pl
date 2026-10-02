@@ -35,8 +35,8 @@ osc52 () {
 # Copy $line to the clipboard using OSC52.
 copy_osc52() {
   local data=$1
-  osc52 <<< "$data"
+  printf '%s' "$data" | osc52
 }
 
 copy_osc52 "$line"
-echo "copied to clipboard: $line"
+echo "copied to clipboard: $line" >&2
